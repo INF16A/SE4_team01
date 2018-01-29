@@ -20,9 +20,15 @@ public class Application {
     }
 
     private void showCurrentComponent() {
-        SorterType[] sorterTypes = SorterType.values();
-        System.out.println("current component " + sorterTypes[-1 + Integer.parseInt(Configuration.instance.sortingAlgorithm)]);
+        try {
+            Method getName = port.getClass().getMethod("getName");
+            System.out.println("current component: " + getName.invoke(port));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     private void parseInputSelection(String input) {
         String parsedInput = input.toLowerCase().trim();
