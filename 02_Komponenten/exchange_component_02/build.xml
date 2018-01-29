@@ -12,7 +12,7 @@
 
     <target name="jar">
         <mkdir dir="jar"/>
-        <jar destfile="jar/shakersorter.jar" basedir="build">
+        <jar destfile="jar/sorter.jar" basedir="build">
             <manifest>
                 <attribute name="Main-Class" value="ShakerSorter"/>
             </manifest>
