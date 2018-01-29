@@ -1,31 +1,38 @@
 // source: https://www.cs.waikato.ac.nz/~bernhard/317/source/IntroSort.java
 
 public class IntroSorter implements ISorter {
+    private  IntroSorter(){
+            port=new SortPort();
+    }
+    private  static  IntroSorter instance = new IntroSorter();
+    public SortPort port;
     /*
    * Class Variables
    */
-    private static int size_threshold = 16;
+    private  int size_threshold = 16;
 
     /*
      * Public interface
      */
-    public static void sort(int[] a)
+    public  void _sort(int[] a)
     {
         introsort_loop(a, 0, a.length, 2*floor_lg(a.length));
     }
 
-    public static void sort(int[] a, int begin, int end)
+    public  void sort(int[] a, int begin, int end)
     {
         if (begin < end)
         {
             introsort_loop(a, begin, end, 2*floor_lg(end-begin));
         }
     }
-
+    public static IntroSorter getInstance() {
+        return instance;
+    }
     /*
      * Quicksort algorithm modified for Introsort
      */
-    private static void introsort_loop (int[] a, int lo, int hi, int depth_limit)
+    private  void introsort_loop (int[] a, int lo, int hi, int depth_limit)
     {
         while (hi-lo > size_threshold)
         {
@@ -42,7 +49,7 @@ public class IntroSorter implements ISorter {
         insertionsort(a, lo, hi);
     }
 
-    private static int partition(int[] a, int lo, int hi, int x)
+    private  int partition(int[] a, int lo, int hi, int x)
     {
         int i=lo, j=hi;
         while (true)
@@ -57,7 +64,7 @@ public class IntroSorter implements ISorter {
         }
     }
 
-    private static int medianof3(int[] a, int lo, int mid, int hi)
+    private  int medianof3(int[] a, int lo, int mid, int hi)
     {
         if (a[mid] < a[lo])
         {
@@ -88,7 +95,7 @@ public class IntroSorter implements ISorter {
     /*
      * Heapsort algorithm
      */
-    private static void heapsort(int[] a, int lo, int hi)
+    private  void heapsort(int[] a, int lo, int hi)
     {
         int n = hi-lo;
         for (int i=n/2; i>=1; i=i-1)
@@ -102,7 +109,7 @@ public class IntroSorter implements ISorter {
         }
     }
 
-    private static void downheap(int[] a, int i, int n, int lo)
+    private  void downheap(int[] a, int i, int n, int lo)
     {
         int d = a[lo+i-1];
         int child;
@@ -123,7 +130,7 @@ public class IntroSorter implements ISorter {
     /*
      * Insertion sort algorithm
      */
-    private static void insertionsort(int[] a, int lo, int hi)
+    private  void insertionsort(int[] a, int lo, int hi)
     {
         int i,j;
         int t;
@@ -143,15 +150,21 @@ public class IntroSorter implements ISorter {
     /*
      * Common methods for all algorithms
      */
-    private static void exchange(int[] a, int i, int j)
+    private  void exchange(int[] a, int i, int j)
     {
         int t=a[i];
         a[i]=a[j];
         a[j]=t;
     }
 
-    private static int floor_lg(int a)
+    private  int floor_lg(int a)
     {
         return (int)(Math.floor(Math.log(a)/Math.log(2)));
+    }
+
+    public  class  SortPort implements ISorter{
+        public  void sort(int[]array){
+             _sort(array);
+        }
     }
 }
