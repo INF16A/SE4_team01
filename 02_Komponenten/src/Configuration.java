@@ -8,9 +8,11 @@ public enum Configuration {
     public String userDirectory = System.getProperty("user.dir");
 
     public String sortingAlgorithm = "01";
-    public String jarPath = "exchange_component_" + sortingAlgorithm + fileSeparator + "jar" + fileSeparator + "sorter.jar";
-    public String fullJarPath = userDirectory + jarPath;
     public String className = "Sorter";
+
+    public String getJarPath() {
+        return "exchange_component_" + sortingAlgorithm + fileSeparator + "jar" + fileSeparator + "sorter.jar";
+    }
 
     public String propFile = "sorter.props";
 
