@@ -1,2 +1,5 @@
 desktop.ini
 *.class
+.idea
+build
+*.iml
