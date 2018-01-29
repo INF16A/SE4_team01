@@ -41,7 +41,7 @@ public class Application {
                 String arr[] = parts[2].split(",");
                 app.execute(arr);
             } else {
-                System.out.println("Unknown command.\nCommands: show components, show current components, set current component <component>, execute <unsorted comma seperated list>");
+                System.out.println("Unknown command.\nThe following commands are available:\nshow components, show current component, set current component <component>, execute <unsorted comma seperated list>");
             }
 
         }
