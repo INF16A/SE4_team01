@@ -13,8 +13,13 @@ public class Application {
     }
 
     private void showCurrentComponent() {
-        SorterType[] sorterTypes = SorterType.values();
-        System.out.println("current component" + sorterTypes[Integer.parseInt(Configuration.instantce.sortingAlgorithm)]);
+        try {
+            Method getName = port.getClass().getMethod("getName");
+            System.out.println("current component: " + getName.invoke(port));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void parseInputSelection(String input) {
@@ -30,7 +35,7 @@ public class Application {
     }
 
     private void loadComponent(SorterType num) {
-        Configuration.instantce.sortingAlgorithm = "0" + Integer.toString(num.ordinal() + 1);
+        Configuration.instance.sortingAlgorithm = "0" + Integer.toString(num.ordinal() + 1);
         port = SorterFactory.create();
     }
 
