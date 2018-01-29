@@ -6,9 +6,9 @@ public class SorterFactory {
     public static Object create() {
         Object sortPort = null;
         try {
-            URL[] urls = {new File(Configuration.instantce.jarPath).toURI().toURL()};
+            URL[] urls = {new File(Configuration.instance.jarPath).toURI().toURL()};
             URLClassLoader urlLoader = new URLClassLoader(urls, SorterFactory.class.getClassLoader());
-            Class sorterClass = Class.forName(Configuration.instantce.className, true, urlLoader);
+            Class sorterClass = Class.forName(Configuration.instance.className, true, urlLoader);
             Object sorterInstance = sorterClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
             sortPort = sorterClass.getDeclaredField("port").get(sorterInstance);
 
