@@ -56,7 +56,8 @@ public class Application {
                 values[i] = Integer.parseInt(arr[i]);
             }
             Method sortMethod = port.getClass().getMethod("sort", int[].class);
-            return (int[]) sortMethod.invoke(port, arr);
+            sortMethod.invoke(port, values);
+            return values;
 
         } catch (NumberFormatException e) {
             System.out.println("Invalid number input");
@@ -90,7 +91,14 @@ public class Application {
             } else if (command.startsWith("execute ")) {
                 String parts[] = command.split(" ");
                 String arr[] = parts[1].split(",");
-                app.execute(arr);
+                int[] result = app.execute(arr);
+                String resultStr = "";
+                for(int i = 0; i < result.length; i++) {
+                    resultStr += Integer.toString(result[i]);
+                    if(i < result.length - 1)
+                        resultStr += ',';
+                }
+                System.out.println(resultStr);
             } else {
                 System.out.println("Unknown command.\nThe following commands are available:\nshow components, show current component, set current component <component>, execute <unsorted comma seperated list>");
             }
