@@ -1,6 +1,6 @@
 //source: http://www.programming-algorithms.net/article/40270/Shaker-sort
 
-public class Sorter implements ISorter {
+public class ShakerSorter implements ISorter {
     /**
      * Shaker sort (bidirectional bubble sort)
      * Orders in descending order

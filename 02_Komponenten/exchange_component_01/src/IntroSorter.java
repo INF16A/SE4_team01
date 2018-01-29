@@ -1,6 +1,6 @@
 // source: https://www.cs.waikato.ac.nz/~bernhard/317/source/IntroSort.java
 
-public class Sorter implements ISorter {
+public class IntroSorter implements ISorter {
     /*
    * Class Variables
    */
