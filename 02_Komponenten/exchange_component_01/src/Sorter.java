@@ -1,8 +1,6 @@
 // source: https://www.cs.waikato.ac.nz/~bernhard/317/source/IntroSort.java
 
-import java.util.*;
-
-public class Component implements IComponent {
+public class Sorter implements ISorter {
     /*
    * Class Variables
    */
