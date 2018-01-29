@@ -9,9 +9,7 @@ public class Sorter {
 
     public SortPort port;
 
-    public String getName() {
-        return "ShakerSort";
-    }
+    private String name = "ShakerSort";
 
     /**
      * Shaker sort (bidirectional bubble sort)
@@ -49,6 +47,10 @@ public class Sorter {
     public class SortPort implements ISorter {
         public void sort(int[] array) {
             _sort(array);
+        }
+
+        public String getName() {
+            return name;
         }
     }
 }

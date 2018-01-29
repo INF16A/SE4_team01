@@ -8,9 +8,7 @@ public class Sorter implements ISorter {
     public SortPort port;
     private static Sorter instance = new Sorter();
 
-    public String getName() {
-        return "IntroSort";
-    }
+    private String name = "IntroSort";
 
     public void _sort(int[] a) {
         introsort_loop(a, 0, a.length, 2 * floor_lg(a.length));
@@ -141,6 +139,10 @@ public class Sorter implements ISorter {
     public class SortPort implements ISorter {
         public void sort(int[] array) {
             _sort(array);
+        }
+
+        public String getName() {
+            return name;
         }
     }
 }
