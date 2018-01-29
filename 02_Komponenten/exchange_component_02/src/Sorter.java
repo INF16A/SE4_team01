@@ -9,6 +9,10 @@ public class Sorter {
 
     public SortPort port;
 
+    public String getName() {
+        return "ShakerSort";
+    }
+
     /**
      * Shaker sort (bidirectional bubble sort)
      * Orders in descending order

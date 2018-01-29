@@ -2,7 +2,7 @@ import java.io.FileInputStream;
 import java.util.Properties;
 
 public enum Configuration {
-    instantce;
+    instance;
 
     public String fileSeparator = System.getProperty("file.separator");
     public String userDirectory = System.getProperty("user.dir");
