@@ -1,10 +1,10 @@
 // source: https://www.cs.waikato.ac.nz/~bernhard/317/source/IntroSort.java
 
-public class IntroSorter implements ISorter {
-    private  IntroSorter(){
+public class Sorter implements ISorter {
+    private Sorter(){
             port=new SortPort();
     }
-    private  static  IntroSorter instance = new IntroSorter();
+    private  static Sorter instance = new Sorter();
     public SortPort port;
     /*
    * Class Variables
@@ -26,7 +26,7 @@ public class IntroSorter implements ISorter {
             introsort_loop(a, begin, end, 2*floor_lg(end-begin));
         }
     }
-    public static IntroSorter getInstance() {
+    public static Sorter getInstance() {
         return instance;
     }
     /*

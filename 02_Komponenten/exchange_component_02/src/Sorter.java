@@ -1,11 +1,11 @@
 //source: http://www.programming-algorithms.net/article/40270/Shaker-sort
 
-public class ShakerSorter {
-    private ShakerSorter() {
+public class Sorter {
+    private Sorter() {
         port = new SortPort();
     }
 
-    private static ShakerSorter instance = new ShakerSorter();
+    private static Sorter instance = new Sorter();
 
     public SortPort port;
 
@@ -38,7 +38,7 @@ public class ShakerSorter {
         }
     }
 
-    public static ShakerSorter getInstance() {
+    public static Sorter getInstance() {
         return instance;
     }
 
