@@ -1,3 +1,5 @@
+package taskgroup01.task47;
+
 import java.util.Random;
 
 public class Application {
