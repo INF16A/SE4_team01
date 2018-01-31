@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class FlightControl implements IFlightControl, IPositionListener {
-    List<Airplane> airplanes;
-    List<Airport> airports;
-    List<ClimbCommand> climbCommands;
+    List<Airplane> airplanes = new ArrayList<>();
+    List<Airport> airports = new ArrayList<>();
+    List<ClimbCommand> climbCommands = new ArrayList<>();
 
     public void registerAirplane(Airplane p) {
         airplanes.add(p);
