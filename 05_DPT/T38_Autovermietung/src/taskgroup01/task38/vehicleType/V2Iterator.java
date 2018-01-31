@@ -1,4 +1,4 @@
-package taskgroup01.task38.VehicleTypes;
+package taskgroup01.task38.vehicleType;
 
 import taskgroup01.task38.VehicleStorage;
 import taskgroup01.task38.VehicleStorageIterator;

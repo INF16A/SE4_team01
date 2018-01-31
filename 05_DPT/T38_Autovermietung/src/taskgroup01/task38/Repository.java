@@ -1,6 +1,6 @@
 package taskgroup01.task38;
 
-import taskgroup01.task38.VehicleTypes.*;
+import taskgroup01.task38.vehicleType.*;
 
 public class Repository {
     private V1Storage v1Storage;
