@@ -3,7 +3,11 @@ import java.util.List;
 
 public abstract class VehicleStorage {
     private List<Vehicle> vehicles = new ArrayList<>();
-    private int maximumIndex = 3;
+    private int maximumIndex;
+
+    public VehicleStorage(int maxSize) {
+        maximumIndex = maxSize;
+    }
 
     public Vehicle getVehicleAt(int index) {
         if (index < maximumIndex) {
@@ -13,6 +17,15 @@ public abstract class VehicleStorage {
 
     public int getLength() {
         return vehicles.size();
+    }
+
+    public void appendVehicle(Vehicle v) {
+        vehicles.add(v);
+    }
+
+    public IIterator iterator() {
+        //return new VehicleStorageIterator(this);
+        return null;
     }
 
 }
