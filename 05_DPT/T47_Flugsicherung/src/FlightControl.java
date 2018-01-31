@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class FlightControl implements IFlightControl {
+public class FlightControl implements IFlightControl, IPositionListener {
     List<Airplane> airplanes;
     List<Airport> airports;
     public void sendClimbCommand(Airplane p) {
@@ -13,5 +13,15 @@ public class FlightControl implements IFlightControl {
 
     public void registerAirport(Airport a) {
         airports.add(a);
+    }
+
+    @Override
+    public void heightChanged() {
+
+    }
+
+    @Override
+    public void positionChanged() {
+
     }
 }
