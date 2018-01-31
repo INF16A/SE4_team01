@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Airplane implements ITimeControlled  {
+public class Airplane implements IAirplane,ITimeControlled {
     private static final float changeHeightChance = 0.2f;
     private static final int minHeight = 9500;
     private static final int maxHeight = 11250;
@@ -13,9 +13,9 @@ public class Airplane implements ITimeControlled  {
     private IFlightControl flightControl;
     private List<IPositionListener> listeners = new ArrayList<>();
 
-    public Airplane(IFlightControl fc, String name, int speed, int position) {
+    public Airplane(IFlightControl fc, String name, int speed, Airport startAirport) {
         this.speed = speed;
-        this.position = position;
+        this.position = startAirport.getLocation();
         this.name = name;
         TimeControl.timeControl.AddToTimeControl(this);
         this.flightControl = fc;

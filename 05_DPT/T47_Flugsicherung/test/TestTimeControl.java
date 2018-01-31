@@ -30,8 +30,21 @@ public class TestTimeControl {
         testTimeControlledObject testObject = new testTimeControlledObject();
         tc.AddToTimeControl(testObject);
         tc.Cycle();
+        tc.RemoveFromTimeControl(testObject);
+        tc.Cycle();
         Assert.assertEquals(1, testObject.callsCount);
     }
+
+    @Test
+    public void TestRemoveListener() {
+        TimeControl tc = new TimeControl();
+        testTimeControlledObject testObject = new testTimeControlledObject();
+        tc.AddToTimeControl(testObject);
+        tc.Cycle();
+        Assert.assertEquals(1, testObject.callsCount);
+
+    }
+
     @Test
     public void TestTestTimeControlInitial() {
         testTimeControlledObject testTimeControlledObject = new testTimeControlledObject();
@@ -44,6 +57,7 @@ public class TestTimeControl {
         testTimeControlledObject.Cycle();
         Assert.assertEquals(1, testTimeControlledObject.callsCount);
     }
+
     private class testTimeControlledObject implements ITimeControlled {
         private int callsCount = 0;
 

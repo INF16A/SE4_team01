@@ -1,8 +1,8 @@
 public class ClimbCommand implements ICommand {
 
-    private Airplane airplane;
+    private IEmergencyClimbable airplane;
 
-    public ClimbCommand(Airplane p) {
+    public ClimbCommand(IEmergencyClimbable p) {
         this.airplane = p;
     }
 

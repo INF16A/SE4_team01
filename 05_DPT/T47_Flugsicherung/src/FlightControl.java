@@ -12,31 +12,26 @@ class LastPosition {
 }
 
 public class FlightControl implements IFlightControl, IPositionListener {
-    private List<Airplane> airplanes = new ArrayList<>();
+    private List<IAirplane> airplanes = new ArrayList<>();
     private List<ClimbCommand> climbCommands = new ArrayList<>();
     private List<LastPosition> lastPositions = new ArrayList<>();
-    private List<Airport> airports = new ArrayList<>();
 
     public FlightControl() {
-        lastPositions.add(new LastPosition(0,0));
-        lastPositions.add(new LastPosition(0,0));
+        lastPositions.add(new LastPosition(0, 0));
+        lastPositions.add(new LastPosition(0, 0));
     }
 
-    public void registerAirplane(Airplane p) {
+    public void registerAirplane(IAirplane p) {
         p.addListener(this);
         airplanes.add(p);
         climbCommands.add(new ClimbCommand(p));
     }
 
-    public void registerAirport(Airport a) {
-        airports.add(a);
-    }
-
     @Override
-    public void positionChanged(Airplane p, int pos, int height) {
+    public void positionChanged(IPositionSpeaker p, int pos, int height) {
         int index = airplanes.indexOf(p);
         lastPositions.set(index, new LastPosition(pos, height));
-        if(index == 1) checkForCollision();
+        if (index == 1) checkForCollision();
     }
 
     private void checkForCollision() {

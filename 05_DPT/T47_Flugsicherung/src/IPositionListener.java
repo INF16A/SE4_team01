@@ -1,3 +1,3 @@
 public interface IPositionListener {
-    public void positionChanged(Airplane p, int pos, int height);
+    public void positionChanged(IPositionSpeaker p, int pos, int height);
 }

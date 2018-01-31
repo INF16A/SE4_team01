@@ -1,10 +1,11 @@
 public class Airport {
     private int location;
-    private IFlightControl flightControl;
 
-    public Airport(IFlightControl fc, int pos) {
-        this.flightControl = fc;
-        fc.registerAirport(this);
+    public int getLocation() {
+        return location;
+    }
+
+    public Airport(int pos) {
         location = pos;
     }
 }
