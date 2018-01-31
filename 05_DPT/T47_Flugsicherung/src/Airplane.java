@@ -1,12 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Airplane implements ITimeControlled {
+public class Airplane implements ITimeControlled  {
     private static final float changeHeightChance = 0.2f;
     private static final int minHeight = 9500;
     private static final int maxHeight = 11250;
-    private static final int maxEmergencyHeight = 9000;
-    private static final int minEmergencyHeight = 11500;
     private int height = 10000;
     private int position;
     private int speed;
