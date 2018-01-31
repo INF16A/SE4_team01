@@ -16,9 +16,11 @@ public class TimeControl {
     }
 
     public void Cycle() {
+        System.out.print(ticksCount+"\t");
         for (int i = 0; i < controllables.size(); i++) {
             controllables.get(i).Cycle();
         }
+        System.out.println();
         ticksCount++;
     }
 }
