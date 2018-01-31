@@ -3,7 +3,7 @@ package taskgroup01.task38;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class VehicleStorage<Vhcl extends Vehicle> {
+public abstract class VehicleStorage<Vhcl extends Vehicle> implements IAgregate {
     private List<Vhcl> vehicles = new ArrayList<>();
     private int maximumIndex;
 
