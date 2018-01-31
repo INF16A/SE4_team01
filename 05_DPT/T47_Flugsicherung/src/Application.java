@@ -6,7 +6,7 @@ public class Application {
         Airplane F1 = new Airplane(flightControl);
         Airplane F2 = new Airplane(flightControl);
         Airport A = new Airport(flightControl, 0, 0);
-        Airport B = new Airport(flightControl, 0, 1000);
+        Airport B = new Airport(flightControl, 1000, 0);
 
         flightControl.registerAirplane(F1);
         flightControl.registerAirplane(F2);
