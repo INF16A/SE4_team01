@@ -42,7 +42,7 @@ public class FlightControl implements IFlightControl, IPositionListener {
     private void checkForCollision() {
         LastPosition loc1 = lastPositions.get(0);
         LastPosition loc2 = lastPositions.get(1);
-        if (Math.abs(loc1.pos - loc2.pos) <= 40) { //planes are one second apart
+        if (Math.abs(loc1.pos - loc2.pos) <= 40 && loc1.pos < loc2.pos) { //planes are one second apart
             if (loc1.height == loc2.height) { //planes will collide
                 if (Application.GetRandomChance() < 0.5) {
                     climbCommands.get(0).execute();
