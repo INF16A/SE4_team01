@@ -15,7 +15,7 @@ public class FlightControl implements IFlightControl, IPositionListener {
     }
 
     @Override
-    public void positionChanged(int[] newPos) {
+    public void positionChanged(Airplane p, int pos, int height) {
 
     }
 }
