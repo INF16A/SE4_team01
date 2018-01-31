@@ -1,5 +1,9 @@
 //source: http://www.programming-algorithms.net/article/40270/Shaker-sort
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+
 public class Sorter {
     private Sorter() {
         port = new SortPort();
@@ -37,6 +41,11 @@ public class Sorter {
                 }
             }
             if (!swapped) break;
+        }
+        for (int i = 0; i < array.length / 2; i++) {
+            int temp = array[i];
+            array[i] = array[array.length - i - 1];
+            array[array.length - i - 1] = temp;
         }
     }
 
