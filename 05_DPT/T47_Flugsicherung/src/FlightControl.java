@@ -36,7 +36,7 @@ public class FlightControl implements IFlightControl, IPositionListener {
     public void positionChanged(Airplane p, int pos, int height) {
         int index = airplanes.indexOf(p);
         lastPositions.set(index, new LastPosition(pos, height));
-        checkForCollision();
+        if(index == 1) checkForCollision();
     }
 
     private void checkForCollision() {
