@@ -1,15 +1,17 @@
+package taskgroup01.task38;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class VehicleStorage {
-    private List<Vehicle> vehicles = new ArrayList<>();
+public abstract class VehicleStorage<Vhcl extends Vehicle> {
+    private List<Vhcl> vehicles = new ArrayList<>();
     private int maximumIndex;
 
     public VehicleStorage(int maxSize) {
         maximumIndex = maxSize;
     }
 
-    public Vehicle getVehicleAt(int index) {
+    public Vhcl getVehicleAt(int index) {
         if (index < maximumIndex) {
             return vehicles.get(index);
         } else return null;
@@ -19,12 +21,12 @@ public abstract class VehicleStorage {
         return vehicles.size();
     }
 
-    public void appendVehicle(Vehicle v) {
+    public void appendVehicle(Vhcl v) {
         vehicles.add(v);
     }
 
     public IIterator iterator() {
-        //return new VehicleStorageIterator(this);
+        //return new taskgroup01.task38.VehicleStorageIterator(this);
         return null;
     }
 

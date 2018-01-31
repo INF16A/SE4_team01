@@ -1,3 +1,5 @@
+package taskgroup01.task38;
+
 public class Customer {
     private String name = "";
 

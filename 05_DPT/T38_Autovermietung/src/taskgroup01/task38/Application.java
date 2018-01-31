@@ -1,3 +1,5 @@
+package taskgroup01.task38;
+
 import java.util.Scanner;
 
 public class Application {
