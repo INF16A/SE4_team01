@@ -17,6 +17,7 @@ public class Airplane implements ITimeControlled {
 
     public Airplane(IFlightControl fc, String name) {
         this.name = name;
+        TimeControl.timeControl.AddToTimeControl(this);
         this.flightControl = fc;
         this.flightControl.registerAirplane(this);
     }
