@@ -1,3 +1,5 @@
+package taskgroup01.task47;
+
 import org.junit.Assert;
 import org.junit.Test;
 
