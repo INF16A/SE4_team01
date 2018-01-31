@@ -4,6 +4,10 @@ import java.util.List;
 public class TimeControl {
     public static TimeControl timeControl = new TimeControl();
 
+    public int getTicksCount() {
+        return ticksCount;
+    }
+
     private int ticksCount;
     private List<ITimeControlled> controllables = new ArrayList<>();
 
