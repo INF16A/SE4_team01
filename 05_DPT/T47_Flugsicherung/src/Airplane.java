@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Airplane{
+public class Airplane {
     private int height;
     private int[] location;
     private int speed;
@@ -10,9 +10,14 @@ public class Airplane{
 
     public Airplane(IFlightControl fc) {
         this.flightControl = fc;
+        this.flightControl.registerAirplane(this);
     }
 
     public void addListener(IPositionListener positionListener) {
         listeners.add(positionListener);
+    }
+
+    public void removeListener(IPositionListener positionListener) {
+        listeners.remove(positionListener);
     }
 }
