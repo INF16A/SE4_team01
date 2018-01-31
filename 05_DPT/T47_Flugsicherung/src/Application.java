@@ -8,9 +8,6 @@ public class Application {
         Airport A = new Airport(flightControl, 0, 0);
         Airport B = new Airport(flightControl, 1000, 0);
 
-        flightControl.registerAirplane(F1);
-        flightControl.registerAirplane(F2);
-        flightControl.registerAirport(A);
-        flightControl.registerAirport(B);
+
     }
 }
