@@ -3,14 +3,14 @@ package taskgroup01.task38.VehicleTypes;
 import taskgroup01.task38.IIterator;
 import taskgroup01.task38.VehicleStorage;
 
-public class V1Storage extends VehicleStorage<V1> {
+public class V5Storage extends VehicleStorage<V5> {
 
-    public V1Storage(int maxSize) {
+    public V5Storage(int maxSize) {
         super(maxSize);
     }
 
     @Override
     public IIterator iterator() {
-        return new V1Iterator(this);
+        return new V5Iterator(this);
     }
 }
