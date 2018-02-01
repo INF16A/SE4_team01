@@ -5,9 +5,11 @@ public class Application implements IQuery {
     List<RecordLine> records;
 
     public static void main(String... args) {
-
+        Application app = new Application();
+        app.execute();
 
     }
+
 
     public void execute() {
         loadRecords();
@@ -31,7 +33,12 @@ public class Application implements IQuery {
     }
 
     // count
-    public void executeSQL01() {
+    public long executeSQL01() {
+        long count = records.stream().count();
+        System.out.println("--- query 01 (count)");
+        System.out.println(count);
+        System.out.println();
+        return count;
     }
 
     // count, where

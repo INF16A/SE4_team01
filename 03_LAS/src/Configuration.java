@@ -1,9 +1,7 @@
-import toRemove.MersenneTwister;
-
 public enum Configuration {
     instance;
 
-    public MersenneTwister randomNumberGenerator = new MersenneTwister(System.currentTimeMillis());
+    //public MersenneTwister randomNumberGenerator = new MersenneTwister(System.currentTimeMillis());
 
     public String fileSeparator = System.getProperty("file.separator");
     public String lineSeparator = System.getProperty("line.separator");

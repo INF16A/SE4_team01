@@ -11,8 +11,7 @@ public class CsvParser {
             File inputF = new File(inputFilePath);
             InputStream inputFS = new FileInputStream(inputF);
             BufferedReader br = new BufferedReader(new InputStreamReader(inputFS));
-            // skip the header of the csv
-            inputList = br.lines().skip(1).map(mapToItem).collect(Collectors.toList());
+            inputList = br.lines().map(mapToItem).collect(Collectors.toList());
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,8 +30,8 @@ public class CsvParser {
                 Integer.parseInt(p[4]),
                 p[5],
                 Integer.parseInt(p[6]),
-                Integer.parseInt(p[8]),
-                Integer.parseInt(p[9]));
+                Integer.parseInt(p[7]),
+                Integer.parseInt(p[8]));
         //more initialization goes here
         return item;
     };

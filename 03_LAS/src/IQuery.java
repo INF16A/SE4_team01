@@ -1,5 +1,5 @@
 public interface IQuery {
-    void executeSQL01();
+    long executeSQL01();
     void executeSQL02();
     void executeSQL03();
     void executeSQL04();
