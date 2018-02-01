@@ -1,0 +1,103 @@
+--- query 01 (count)
+SELECT COUNT(*) FROM data
+1000000  
+
+--- query 02 (count, where)
+SELECT COUNT(*) FROM data WHERE serviceDesk = 8 AND type = 'w'
+20752  
+
+--- query 03 (count, where, in)
+SELECT COUNT(*) FROM data WHERE serviceDesk = 4 AND shift = 1
+AND type = 'm' AND dayOfWeek IN ('fri','sat','sun')
+2246  
+
+--- query 04 (count, where, not in)
+SELECT COUNT(*) FROM data WHERE serviceDesk = 8 AND shift = 2
+AND type = 'r' AND dayOfWeek NOT IN ('mon','fri','sat')
+3013  
+
+--- query 05 (id, where, in, order by desc limit)
+SELECT serviceDesk FROM data WHERE shift = 2 AND type = 'r'
+AND dayOfWeek IN ('sat','sun') AND destination = 'b'
+AND waitingTimeInMinutes = 10 ORDER BY dayOfWeek DESC LIMIT 3
+1  
+4  
+8  
+
+--- query 06 (id, where, in, order by desc, order by asc)
+SELECT serviceDesk FROM data WHERE shift = 1 AND type = 'm'
+AND dayOfWeek = 'mon' AND destination IN ('a','f')
+AND waitingTimeInMinutes = 10 AND premiumService = 'yes'
+ORDER BY serviceDesk DESC, destination
+12  
+12  
+9  
+9  
+8  
+5  
+5  
+3  
+3  
+
+--- query 07 (count, group by)
+SELECT dayOfWeek,COUNT(*) FROM data GROUP BY dayOfWeek
+mon 142951  
+tue 142639  
+sun 143036  
+wed 143300  
+sat 142677  
+fri 142658  
+thu 142739  
+
+--- query 08 (count, where, group by)
+SELECT destination,COUNT(*) FROM data WHERE type = 'm' AND premiumService = 'yes' GROUP BY destination
+h 1546  
+f 1534  
+a 1536  
+g 1550  
+b 1536  
+d 1586  
+e 1547  
+c 1533  
+
+--- query 09 (count, where, in, group by)
+SELECT dayOfWeek,COUNT(*) FROM data WHERE shift = 3 AND destination = 'c'
+AND type IN ('s','r') GROUP BY dayOfWeek
+mon 2201  
+sat 2206  
+thu 2232  
+sun 2251  
+wed 2262  
+fri 2284  
+tue 2229  
+
+--- query 10 (count, where, not in, group by)
+SELECT type,COUNT(*) FROM data WHERE destination = 'b' AND shift = '4'
+AND dayOfWeek NOT IN ('tue','wed') GROUP BY type
+r 5565  
+m 5503  
+s 5546  
+w 5639  
+
+--- query 11 (sum, where, not in, in, group by)
+SELECT serviceDesk,SUM(price) FROM data WHERE type NOT IN ('s','r')
+AND shift IN (1,2) AND premiumService = 'yes' GROUP BY serviceDesk
+2 304900  
+6 312325  
+3 317270  
+10 319520  
+11 297555  
+12 299935  
+9 301245  
+4 318455  
+8 312695  
+7 290420  
+5 309630  
+1 313465  
+
+--- query 12 (avg, where, in, in, group by)
+SELECT shift,AVG(waitingTimeInMinutes) FROM data WHERE premiumService = 'no'
+AND dayOfWeek IN ('fri','mon') AND shift IN (1,4) GROUP BY shift
+4 5  
+1 5  
+
