@@ -1,6 +1,7 @@
 import javafx.util.Pair;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IQuery {
     long executeSQL01();
@@ -15,15 +16,15 @@ public interface IQuery {
 
     List<Integer> executeSQL06();
 
-    List<Pair<Character,Long>> executeSQL07();
+    Map<Character, Long> executeSQL07();
 
-    List<Pair<Integer,Long>>  executeSQL08();
+    Map<Integer, Long>  executeSQL08();
 
-    List<Pair<Character,Long>> executeSQL09();
+    Map<Character, Long> executeSQL09();
 
-    List<Pair<Character,Long>>  executeSQL10();
+    Map<Character, Long> executeSQL10();
 
-    List<Pair<Character,Long>>  executeSQL11();
+    Map<Character, Long>  executeSQL11();
 
-    List<Pair<Character,Double>>  executeSQL12();
+    Map<Character, Double>  executeSQL12();
 }

@@ -1,8 +1,7 @@
-import javafx.util.Pair;
-
 import java.util.Comparator;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Application implements IQuery {
@@ -121,42 +120,61 @@ public class Application implements IQuery {
     // id, where, in, order by desc, order by asc
     @Override
     public List<Integer> executeSQL06() {
-        return null;
+        List<Integer> result = records.stream()
+                .filter(r ->
+                        r.getCustomerTownId() >= 5 &&
+                                r.getCustomerTownId() <= 7 &&
+                                "AB".contains(Character.toString(r.getCustomerRegion())) &&
+                                r.getProductId() >= 250 &&
+                                r.getProductId() <= 252 &&
+                                r.getQuanitity() == 1)
+                .sorted(Comparator.comparingInt(RecordLine::getQuanitity).reversed().thenComparingInt(RecordLine::getCustomerTownId))
+                .map(RecordLine::getId)
+                .collect(Collectors.toList());
+        System.out.println("--- query 06 (id, where, in, order by desc, order by asc)");
+        System.out.println(result);
+        System.out.println();
+        return result;
     }
 
     // count, group by
     @Override
-    public List<Pair<Character, Long>> executeSQL07() {
-        return null;
+    public Map<Character, Long> executeSQL07() {
+        Map<Character, Long> result = records.stream()
+                .collect(Collectors.groupingBy(RecordLine::getCustomerRegion, Collectors.counting()));
+        System.out.println("--- query 07 (count, group by)");
+        System.out.println(result);
+        System.out.println();
+        return result;
     }
 
     // count, where, group by
     @Override
-    public List<Pair<Integer, Long>> executeSQL08() {
+    public Map<Integer, Long> executeSQL08() {
         return null;
     }
 
     // count, where, in, group by
     @Override
-    public List<Pair<Character, Long>> executeSQL09() {
+    public Map<Character, Long> executeSQL09() {
         return null;
     }
 
     // count, where, not in, group by
     @Override
-    public List<Pair<Character, Long>> executeSQL10() {
+    public Map<Character, Long> executeSQL10() {
         return null;
     }
 
     // sum, where, not in, in, group by
     @Override
-    public List<Pair<Character, Long>> executeSQL11() {
+    public Map<Character, Long> executeSQL11() {
         return null;
     }
 
     // avg, where, in, in, group by
     @Override
-    public List<Pair<Character, Double>> executeSQL12() {
+    public Map<Character, Double> executeSQL12() {
         return null;
     }
 }
