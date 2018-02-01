@@ -90,11 +90,11 @@ public class Application implements IApplication {
 
     public static void main(String... args) {
         Application application = new Application();
-        application.initRegions();
+        /*application.initRegions();
         application.initTowns();
         application.initCustomers();
         application.initProducts();
         application.generateData();
-        application.generateToCSVFile();
+        application.generateToCSVFile();*/
     }
 }
