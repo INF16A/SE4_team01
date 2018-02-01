@@ -1,3 +1,5 @@
+import toRemove.MersenneTwister;
+
 public enum Configuration {
     instance;
 

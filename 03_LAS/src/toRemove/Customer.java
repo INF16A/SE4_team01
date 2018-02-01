@@ -1,3 +1,5 @@
+package toRemove;
+
 public class Customer {
     private int id;
     private Town town;
@@ -17,7 +19,7 @@ public class Customer {
 
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("{ Customer : ").append("id = ").append(id).append(", ");
+        stringBuilder.append("{ toRemove.Customer : ").append("id = ").append(id).append(", ");
         stringBuilder.append("town = ").append(town).append(" }");
         return stringBuilder.toString();
     }

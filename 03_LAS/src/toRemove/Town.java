@@ -1,3 +1,5 @@
+package toRemove;
+
 public class Town {
     private int id;
     private String region;
