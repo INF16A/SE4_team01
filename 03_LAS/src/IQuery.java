@@ -1,5 +1,3 @@
-import javafx.util.Pair;
-
 import java.util.List;
 import java.util.Map;
 
@@ -26,5 +24,5 @@ public interface IQuery {
 
     Map<Character, Long>  executeSQL11();
 
-    Map<Character, Double>  executeSQL12();
+    Map<Integer, Long> executeSQL12();
 }

@@ -1,7 +1,5 @@
-import java.util.Comparator;
+import java.util.*;
 
-import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Application implements IQuery {
@@ -151,30 +149,67 @@ public class Application implements IQuery {
     // count, where, group by
     @Override
     public Map<Integer, Long> executeSQL08() {
-        return null;
+        Map<Integer, Long> result = records.stream()
+                .filter(r -> r.getCustomerRegion() == 'C' && r.getProductId() <= 10 && r.getQuanitity() <= 2)
+                .collect(Collectors.groupingBy(RecordLine::getProductId, Collectors.counting()));
+        System.out.println("--- query 08 (count, where, group by)");
+        System.out.println(result);
+        System.out.println();
+        return result;
     }
 
     // count, where, in, group by
     @Override
     public Map<Character, Long> executeSQL09() {
-        return null;
+        Map<Character, Long> result = records.stream()
+                .filter(r -> r.getProductId() >= 125 && r.getProductId() <= 425 && r.getQuanitity() > 1 &&
+                        "ABC".contains(Character.toString(r.getCustomerRegion())))
+                .collect(Collectors.groupingBy(RecordLine::getCustomerRegion, Collectors.counting()));
+        System.out.println("--- query 09 (count, where, in, group by)");
+        System.out.println(result);
+        System.out.println();
+        return result;
     }
 
     // count, where, not in, group by
     @Override
     public Map<Character, Long> executeSQL10() {
-        return null;
+        Map<Character, Long> result = records.stream()
+                .filter(r -> r.getCustomerTownId() <= 275 && r.getProductId() <= 300 &&
+                        !"BDFG".contains(Character.toString(r.getCustomerRegion())))
+                .collect(Collectors.groupingBy(RecordLine::getCustomerRegion, Collectors.counting()));
+        System.out.println("--- query 10 (count, where, not in, group by)");
+        System.out.println(result);
+        System.out.println();
+        return result;
     }
 
     // sum, where, not in, in, group by
     @Override
     public Map<Character, Long> executeSQL11() {
-        return null;
+        Map<Character, Long> result = records.stream()
+                .filter(r -> r.getCustomerTownId() >= 50 && r.getCustomerTownId() <= 100 &&
+                        Arrays.asList(5, 10, 15, 20).contains(r.getProductId()) &&
+                        !"BCD".contains(Character.toString(r.getCustomerRegion())))
+                .collect(Collectors.groupingBy(RecordLine::getCustomerRegion, Collectors.summingLong(RecordLine::getQuanitity)));
+        System.out.println("--- query 11 (sum, where, not in, in, group by))");
+        System.out.println(result);
+        System.out.println();
+        return result;
     }
 
     // avg, where, in, in, group by
     @Override
-    public Map<Character, Double> executeSQL12() {
-        return null;
+    public Map<Integer, Long> executeSQL12() {
+        Map<Integer, Long> result = records.stream()
+                .filter(r -> r.getCustomerTownId() >= 50 && r.getCustomerTownId() <= 100 &&
+                        Arrays.asList(10, 20, 30, 40, 50).contains(r.getProductId()) &&
+                        "CDE".contains(Character.toString(r.getCustomerRegion())))
+                .collect(Collectors.groupingBy(RecordLine::getProductId, Collectors.collectingAndThen(Collectors.averagingInt(RecordLine::getDeliveryTimeInHours), i -> (long)Math.floor(i))));
+
+        System.out.println("--- query 12 (avg, where, in, in, group by)");
+        System.out.println(result);
+        System.out.println();
+        return result;
     }
 }
