@@ -205,7 +205,7 @@ public class Application implements IQuery {
                 .filter(r -> r.getCustomerTownId() >= 50 && r.getCustomerTownId() <= 100 &&
                         Arrays.asList(10, 20, 30, 40, 50).contains(r.getProductId()) &&
                         "CDE".contains(Character.toString(r.getCustomerRegion())))
-                .collect(Collectors.groupingBy(RecordLine::getProductId, Collectors.collectingAndThen(Collectors.averagingInt(RecordLine::getDeliveryTimeInHours), i -> (long)Math.floor(i))));
+                .collect(Collectors.groupingBy(RecordLine::getProductId, Collectors.collectingAndThen(Collectors.averagingInt(RecordLine::getDeliveryTimeInHours), Double::longValue)));
 
         System.out.println("--- query 12 (avg, where, in, in, group by)");
         System.out.println(result);
