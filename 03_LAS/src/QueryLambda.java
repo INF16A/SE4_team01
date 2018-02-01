@@ -1,6 +1,8 @@
 public class QueryLambda implements IQuery {
 
     public static void main(String... args) {
+        CsvParser csvParser = new CsvParser();
+        csvParser.processInputFile(Configuration.instance.dataPath + "records.csv");
 
     }
 
