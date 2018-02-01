@@ -1,6 +1,9 @@
 import javafx.util.Pair;
 
+import java.util.Comparator;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Application implements IQuery {
 
@@ -89,16 +92,30 @@ public class Application implements IQuery {
                                 r.getProductId() <= 100 &&
                                 r.getQuanitity() <= 2)
                 .count();
-        System.out.println("--- query 04 (count, where, in, order by desc limit)");
+        System.out.println("--- query 04 (count, where, not in)");
         System.out.println(count);
         System.out.println();
         return count;
     }
 
     // id, where, in, order by desc limit
-    @Override
     public List<Integer> executeSQL05() {
-        return null;
+        List<Integer> result = records.stream()
+                .filter(r ->
+                        r.getCustomerTownId() >= 10 &&
+                                r.getCustomerTownId() <= 15 &&
+                                "AB".contains(Character.toString(r.getCustomerRegion())) &&
+                                r.getProductId() >= 50 &&
+                                r.getProductId() <= 55 &&
+                                r.getQuanitity() == 3)
+                .sorted(Comparator.comparingInt(RecordLine::getCustomerTownId).reversed())
+                .map(RecordLine::getId)
+                .limit(3)
+                .collect(Collectors.toList());
+        System.out.println("--- query 05 (count, where, in, order by desc limit)");
+        System.out.println(result);
+        System.out.println();
+        return result;
     }
 
     // id, where, in, order by desc, order by asc
