@@ -1,14 +1,29 @@
+import javafx.util.Pair;
+
+import java.util.List;
+
 public interface IQuery {
     long executeSQL01();
+
     long executeSQL02();
+
     long executeSQL03();
+
     long executeSQL04();
-    void executeSQL05();
-    void executeSQL06();
-    void executeSQL07();
-    void executeSQL08();
-    void executeSQL09();
-    void executeSQL10();
-    void executeSQL11();
-    void executeSQL12();
+
+    List<Integer> executeSQL05();
+
+    List<Integer> executeSQL06();
+
+    List<Pair<Character,Long>> executeSQL07();
+
+    List<Pair<Integer,Long>>  executeSQL08();
+
+     List<Pair<Character,Long>> executeSQL09();
+
+    List<Pair<Character,Long>>  executeSQL10();
+
+    List<Pair<Character,Long>>  executeSQL11();
+
+    List<Pair<Character,Double>>  executeSQL12();
 }
