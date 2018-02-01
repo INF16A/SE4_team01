@@ -9,5 +9,8 @@ public enum Configuration {
     public String dataPath = "data" + fileSeparator;
     public String logPath = "log" + fileSeparator;
 
-    public int maximumNumberOfRecords = 1000000;
+    public int maximumNumberOfTowns = 500;
+    public int maximumNumberOfCustomers = 10000;
+    public int maximumNumberOfProducts = 750;
+    public int maximumNumberOfOrders = 1000000;
 }

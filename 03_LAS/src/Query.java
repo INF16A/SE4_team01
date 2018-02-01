@@ -78,7 +78,7 @@ public class Query implements IQuery {
     public void executeSQL02() {
         writeLogfile("--- query 02 (count, where)");
         String sqlStatement = "SELECT COUNT(*) FROM data " +
-                "WHERE serviceDesk = 8 AND type = 'w'";
+                "WHERE customerRegion = 'A' AND productID >= 100 AND productID <= 500 AND quantity > 1";
         queryDump(sqlStatement);
     }
 
@@ -86,8 +86,10 @@ public class Query implements IQuery {
     public void executeSQL03() {
         writeLogfile("--- query 03 (count, where, in)");
         String sqlStatement = "SELECT COUNT(*) FROM data " +
-                "WHERE serviceDesk = 4 AND shift = 1 AND type = 'm' " +
-                "AND dayOfWeek IN ('fri','sat','sun')";
+                "WHERE customerTownID >= 5 AND customerTownID <= 75 " +
+                "AND customerRegion IN ('B','C','G') " +
+                "AND productID >= 50 AND productID <= 500 " +
+                "AND quantity <= 2";
         queryDump(sqlStatement);
     }
 
@@ -95,90 +97,97 @@ public class Query implements IQuery {
     public void executeSQL04() {
         writeLogfile("--- query 04 (count, where, not in)");
         String sqlStatement = "SELECT COUNT(*) FROM data " +
-                "WHERE serviceDesk = 8 AND shift = 2 AND type = 'r' " +
-                "AND dayOfWeek NOT IN ('mon','fri','sat')";
+                "WHERE customerTownID >= 10 AND customerTownID <= 15 " +
+                "AND customerRegion NOT IN ('A','B','C','H') " +
+                "AND productID >= 50 AND productID <= 100 " +
+                "AND quantity <= 2";
         queryDump(sqlStatement);
-}
+    }
 
     // id, where, in, order by desc limit
     public void executeSQL05() {
         writeLogfile("--- query 05 (id, where, in, order by desc limit)");
-        String sqlStatement = "SELECT serviceDesk FROM data " +
-                "WHERE shift = 2 AND type = 'r' " +
-                "AND dayOfWeek IN ('sat','sun') AND destination = 'b' " +
-                "AND waitingTimeInMinutes = 10 " +
-                "ORDER BY dayOfWeek DESC LIMIT 3";
+        String sqlStatement = "SELECT id FROM data " +
+                "WHERE customerTownID >= 10 AND customerTownID <= 15 " +
+                "AND customerRegion IN ('A','B') " +
+                "AND productID >= 50 AND productID <= 55 " +
+                "AND quantity = 3 " +
+                "ORDER BY customerTownID DESC LIMIT 3";
         queryDump(sqlStatement);
     }
 
     // id, where, in, order by desc, order by asc
     public void executeSQL06() {
         writeLogfile("--- query 06 (id, where, in, order by desc, order by asc)");
-        String sqlStatement = "SELECT serviceDesk FROM data " +
-                "WHERE shift = 1 AND type = 'm' " +
-                "AND dayOfWeek = 'mon' AND destination IN ('a','f') " +
-                "AND waitingTimeInMinutes = 10 " +
-                "AND premiumService = 'yes' " +
-                "ORDER BY serviceDesk DESC, destination";
+        String sqlStatement = "SELECT id FROM data " +
+                "WHERE customerTownID >= 5 AND customerTownID <= 7 " +
+                "AND customerRegion IN ('A','B') " +
+                "AND productID >= 250 AND productID <= 252 " +
+                "AND quantity = 1 " +
+                "ORDER BY quantity DESC,customerTownID";
         queryDump(sqlStatement);
     }
 
     // count, group by
     public void executeSQL07() {
         writeLogfile("--- query 07 (count, group by)");
-        String sqlStatement = "SELECT dayOfWeek,COUNT(*) FROM data " +
-                "GROUP BY dayOfWeek";
+        String sqlStatement = "SELECT customerRegion,COUNT(*) FROM data " +
+                "GROUP BY customerRegion";
         queryDump(sqlStatement);
     }
 
     // count, where, group by
     public void executeSQL08() {
         writeLogfile("--- query 08 (count, where, group by)");
-        String sqlStatement = "SELECT destination,COUNT(*) FROM data " +
-                "WHERE type = 'm' " +
-                "AND premiumService = 'yes' " +
-                "GROUP BY destination";
+        String sqlStatement = "SELECT productID,COUNT(*) FROM data " +
+                "WHERE customerRegion = 'C' " +
+                "AND productID <= 10 " +
+                "AND quantity <= 2 " +
+                "GROUP BY productID";
         queryDump(sqlStatement);
     }
 
     // count, where, in, group by
     public void executeSQL09() {
         writeLogfile("--- query 09 (count, where, in, group by)");
-        String sqlStatement = "SELECT dayOfWeek,COUNT(*) FROM data " +
-                "WHERE shift = 3 AND destination = 'c' " +
-                "AND type IN ('s','r') " +
-                "GROUP BY dayOfWeek";
+        String sqlStatement = "SELECT customerRegion,COUNT(*) FROM data " +
+                "WHERE customerRegion IN ('A','B','C') " +
+                "AND productID >= 125 AND productID <= 425 " +
+                "AND quantity > 1 " +
+                "GROUP BY customerRegion";
         queryDump(sqlStatement);
     }
 
     // count, where, not in, group by
     public void executeSQL10() {
         writeLogfile("--- query 10 (count, where, not in, group by)");
-        String sqlStatement = "SELECT type,COUNT(*) FROM data " +
-                "WHERE destination = 'b' AND shift = '4' " +
-                "AND dayOfWeek NOT IN ('tue','wed') " +
-                "GROUP BY type";
+        String sqlStatement = "SELECT customerRegion,COUNT(*) FROM data " +
+                "WHERE customerRegion NOT IN ('B','D','F','G') " +
+                "AND customerTownID <= 275 " +
+                "AND productID <= 300 " +
+                "GROUP BY customerRegion";
         queryDump(sqlStatement);
     }
 
     // sum, where, not in, in, group by
     public void executeSQL11() {
         writeLogfile("--- query 11 (sum, where, not in, in, group by)");
-        String sqlStatement = "SELECT serviceDesk,SUM(price) FROM data " +
-                "WHERE type NOT IN ('s','r') " +
-                "AND shift IN (1,2) " +
-                "AND premiumService = 'yes' " +
-                "GROUP BY serviceDesk";
+        String sqlStatement = "SELECT customerRegion,SUM(quantity) FROM data " +
+                "WHERE customerRegion NOT IN ('B','C','D') " +
+                "AND customerTownID >= 50 AND customerTownID <= 100 " +
+                "AND productID IN (5,10,15,20,15) " +
+                "GROUP BY customerRegion";
         queryDump(sqlStatement);
     }
 
     // avg, where, in, in, group by
     public void executeSQL12() {
         writeLogfile("--- query 12 (avg, where, in, in, group by)");
-        String sqlStatement = "SELECT shift,AVG(waitingTimeInMinutes) FROM data " +
-                "WHERE premiumService = 'no' " +
-                "AND dayOfWeek IN ('fri','mon') AND shift IN (1,4) " +
-                "GROUP BY shift";
+        String sqlStatement = "SELECT productID,AVG(deliveryTimeInHours) FROM data " +
+                "WHERE customerRegion IN ('C','D','E') " +
+                "AND customerTownID >= 50 AND customerTownID <= 100 " +
+                "AND productID IN (10,20,30,40,50) " +
+                "GROUP BY productID";
         queryDump(sqlStatement);
     }
 
