@@ -7,16 +7,18 @@ import java.util.TreeMap;
 
 public class ApplicationTest {
 
-    @Test
-    public void TestAssertListContainsLength() {
-    }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         query = new Application();
     }
 
     IQuery query;
+
+    @Test
+    public void MainTest() {
+        Application.main(null);
+    }
 
     @Test
     public void executeSQL01() {
@@ -60,7 +62,7 @@ public class ApplicationTest {
         m.put('E', 135157L);
         m.put('B', 135671L);
         m.put('F', 149630L);
-        new AssertMap<Character,Long>().AssertMapContains(query.executeSQL07(), m);
+        new AssertMap<Character, Long>().AssertMapContains(query.executeSQL07(), m);
     }
 
     @Test

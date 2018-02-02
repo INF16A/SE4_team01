@@ -11,10 +11,11 @@ public class AssertList<E> {
         }
     }
 
-    public void AssertListContains(List<E> values, E... itemsToContain) {
+    @SafeVarargs
+    public final void AssertListContains(List<E> values, E... itemsToContain) {
         Assert.assertEquals(itemsToContain.length, values.size());
-        for (int i = 0; i < itemsToContain.length; i++) {
-            Assert.assertTrue(values.contains(itemsToContain[i]));
+        for (E anItemsToContain : itemsToContain) {
+            Assert.assertTrue(values.contains(anItemsToContain));
         }
     }
 }
