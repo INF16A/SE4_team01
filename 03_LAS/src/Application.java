@@ -53,7 +53,7 @@ public class Application implements IQuery {
                         record.getCustomerRegion() == 'A' &&
                                 record.getProductId() >= 100 &&
                                 record.getProductId() <= 500 &&
-                                record.getQuanitity() > 1)
+                                record.getQuantity() > 1)
                 .count();
         System.out.println("--- query 02 (count, where)");
         System.out.println(count);
@@ -70,7 +70,7 @@ public class Application implements IQuery {
                                 "BCG".contains(Character.toString(r.getCustomerRegion())) &&
                                 r.getProductId() >= 50 &&
                                 r.getProductId() <= 500 &&
-                                r.getQuanitity() <= 2)
+                                r.getQuantity() <= 2)
                 .count();
         System.out.println("--- query 03 (count, where, in)");
         System.out.println(count);
@@ -87,7 +87,7 @@ public class Application implements IQuery {
                                 !"ABCH".contains(Character.toString(r.getCustomerRegion())) &&
                                 r.getProductId() >= 50 &&
                                 r.getProductId() <= 100 &&
-                                r.getQuanitity() <= 2)
+                                r.getQuantity() <= 2)
                 .count();
         System.out.println("--- query 04 (count, where, not in)");
         System.out.println(count);
@@ -104,7 +104,7 @@ public class Application implements IQuery {
                                 "AB".contains(Character.toString(r.getCustomerRegion())) &&
                                 r.getProductId() >= 50 &&
                                 r.getProductId() <= 55 &&
-                                r.getQuanitity() == 3)
+                                r.getQuantity() == 3)
                 .sorted(Comparator.comparingInt(RecordLine::getCustomerTownId).reversed())
                 .map(RecordLine::getId)
                 .limit(3)
@@ -125,8 +125,8 @@ public class Application implements IQuery {
                                 "AB".contains(Character.toString(r.getCustomerRegion())) &&
                                 r.getProductId() >= 250 &&
                                 r.getProductId() <= 252 &&
-                                r.getQuanitity() == 1)
-                .sorted(Comparator.comparingInt(RecordLine::getQuanitity).reversed().thenComparingInt(RecordLine::getCustomerTownId))
+                                r.getQuantity() == 1)
+                .sorted(Comparator.comparingInt(RecordLine::getQuantity).reversed().thenComparingInt(RecordLine::getCustomerTownId))
                 .map(RecordLine::getId)
                 .collect(Collectors.toList());
         System.out.println("--- query 06 (id, where, in, order by desc, order by asc)");
@@ -150,7 +150,7 @@ public class Application implements IQuery {
     @Override
     public Map<Integer, Long> executeSQL08() {
         Map<Integer, Long> result = records.stream()
-                .filter(r -> r.getCustomerRegion() == 'C' && r.getProductId() <= 10 && r.getQuanitity() <= 2)
+                .filter(r -> r.getCustomerRegion() == 'C' && r.getProductId() <= 10 && r.getQuantity() <= 2)
                 .collect(Collectors.groupingBy(RecordLine::getProductId, Collectors.counting()));
         System.out.println("--- query 08 (count, where, group by)");
         System.out.println(result);
@@ -162,7 +162,7 @@ public class Application implements IQuery {
     @Override
     public Map<Character, Long> executeSQL09() {
         Map<Character, Long> result = records.stream()
-                .filter(r -> r.getProductId() >= 125 && r.getProductId() <= 425 && r.getQuanitity() > 1 &&
+                .filter(r -> r.getProductId() >= 125 && r.getProductId() <= 425 && r.getQuantity() > 1 &&
                         "ABC".contains(Character.toString(r.getCustomerRegion())))
                 .collect(Collectors.groupingBy(RecordLine::getCustomerRegion, Collectors.counting()));
         System.out.println("--- query 09 (count, where, in, group by)");
@@ -191,7 +191,7 @@ public class Application implements IQuery {
                 .filter(r -> r.getCustomerTownId() >= 50 && r.getCustomerTownId() <= 100 &&
                         Arrays.asList(5, 10, 15, 20).contains(r.getProductId()) &&
                         !"BCD".contains(Character.toString(r.getCustomerRegion())))
-                .collect(Collectors.groupingBy(RecordLine::getCustomerRegion, Collectors.summingLong(RecordLine::getQuanitity)));
+                .collect(Collectors.groupingBy(RecordLine::getCustomerRegion, Collectors.summingLong(RecordLine::getQuantity)));
         System.out.println("--- query 11 (sum, where, not in, in, group by))");
         System.out.println(result);
         System.out.println();

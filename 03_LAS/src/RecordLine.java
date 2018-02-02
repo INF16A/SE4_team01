@@ -6,10 +6,10 @@ public class RecordLine {
     private int productId;
     private String productName;
     private int productPrice;
-    private int quanitity;
+    private int quantity;
     private int deliveryTimeInHours;
 
-    public RecordLine(int id, int customerId, int customerTownId, char customerRegion, int productId, String productName, int productPrice, int quanitity, int deliveryTimeInHours) {
+    public RecordLine(int id, int customerId, int customerTownId, char customerRegion, int productId, String productName, int productPrice, int quantity, int deliveryTimeInHours) {
         this.id = id;
         this.customerId = customerId;
         this.customerTownId = customerTownId;
@@ -17,7 +17,7 @@ public class RecordLine {
         this.productId = productId;
         this.productName = productName;
         this.productPrice = productPrice;
-        this.quanitity = quanitity;
+        this.quantity = quantity;
         this.deliveryTimeInHours = deliveryTimeInHours;
     }
 
@@ -49,8 +49,8 @@ public class RecordLine {
         return productPrice;
     }
 
-    public int getQuanitity() {
-        return quanitity;
+    public int getQuantity() {
+        return quantity;
     }
 
     public int getDeliveryTimeInHours() {
@@ -67,7 +67,7 @@ public class RecordLine {
                 ", productId=" + productId +
                 ", productName='" + productName + '\'' +
                 ", productPrice=" + productPrice +
-                ", quanitity=" + quanitity +
+                ", quantity=" + quantity +
                 ", deliveryTimeInHours=" + deliveryTimeInHours +
                 '}';
     }

@@ -66,7 +66,7 @@ public class RecordLineTest {
     @Test
     public void TestToString() {
         Assert.assertEquals(
-                "RecordLine{id=0, customerId=1, customerTownId=2, customerRegion=A, productId=3, productName='Name', productPrice=4, quanitity=5, deliveryTimeInHours=6}",
+                "RecordLine{id=0, customerId=1, customerTownId=2, customerRegion=A, productId=3, productName='Name', productPrice=4, quantity=5, deliveryTimeInHours=6}",
                 recordLine.toString());
     }
 }
