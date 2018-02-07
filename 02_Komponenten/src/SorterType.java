@@ -1,3 +1,3 @@
 public enum SorterType {
-    intro,shaker
+    intro, shaker
 }

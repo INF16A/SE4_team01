@@ -9,12 +9,11 @@ public enum Configuration {
 
     public String sortingAlgorithm = "01";
     public String className = "Sorter";
+    public String propFile = "sorter.props";
 
     public String getJarPath() {
         return "exchange_component_" + sortingAlgorithm + fileSeparator + "jar" + fileSeparator + "sorter.jar";
     }
-
-    public String propFile = "sorter.props";
 
     public SorterType getSorterType() {
         try {

@@ -1,19 +1,17 @@
 //source: http://www.programming-algorithms.net/article/40270/Shaker-sort
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-
 public class Sorter {
+    private static Sorter instance = new Sorter();
+    public SortPort port;
+    private String name = "ShakerSort";
+
     private Sorter() {
         port = new SortPort();
     }
 
-    private static Sorter instance = new Sorter();
-
-    public SortPort port;
-
-    private String name = "ShakerSort";
+    public static Sorter getInstance() {
+        return instance;
+    }
 
     /**
      * Shaker sort (bidirectional bubble sort)
@@ -47,10 +45,6 @@ public class Sorter {
             array[i] = array[array.length - i - 1];
             array[array.length - i - 1] = temp;
         }
-    }
-
-    public static Sorter getInstance() {
-        return instance;
     }
 
     public class SortPort implements ISorter {

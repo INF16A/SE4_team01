@@ -1,29 +1,27 @@
 // source: https://www.cs.waikato.ac.nz/~bernhard/317/source/IntroSort.java
 
 public class Sorter implements ISorter {
+    private static Sorter instance = new Sorter();
+    public SortPort port;
+    private String name = "IntroSort";
+    private int size_threshold = 16;
+
     private Sorter() {
         port = new SortPort();
     }
 
-    public SortPort port;
-    private static Sorter instance = new Sorter();
-
-    private String name = "IntroSort";
+    public static Sorter getInstance() {
+        return instance;
+    }
 
     public void _sort(int[] a) {
         introsort_loop(a, 0, a.length, 2 * floor_lg(a.length));
     }
 
-    private int size_threshold = 16;
-
     public void sort(int[] a, int begin, int end) {
         if (begin < end) {
             introsort_loop(a, begin, end, 2 * floor_lg(end - begin));
         }
-    }
-
-    public static Sorter getInstance() {
-        return instance;
     }
 
     /*

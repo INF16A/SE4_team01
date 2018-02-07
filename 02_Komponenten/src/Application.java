@@ -1,15 +1,49 @@
-
 import java.lang.reflect.Method;
 import java.util.Scanner;
 
 public class Application {
+    private Class _class;
+    private Object _classInstance;
+    private Object port;
     private Application() {
         loadComponent(Configuration.instance.getSorterType());
     }
 
-    private Class _class;
-    private Object _classInstance;
-    private Object port;
+    public static void main(String... args) {
+        Application app = new Application();
+        System.out.println("Please enter a command:");
+        boolean running = true;
+        Scanner scanner = new Scanner(System.in);
+        while (running) {
+            if (scanner.hasNextLine()) {
+                String command = scanner.nextLine();
+
+                if (command.equals("exit")) {
+                    running = false;
+                } else if (command.equals("show components")) {
+                    app.showComponents();
+                } else if (command.equals("show current component")) {
+                    app.showCurrentComponent();
+                } else if (command.startsWith("set current component ")) {
+                    String[] parts = command.split(" ");
+                    app.parseInputSelection(parts[3]);
+                } else if (command.startsWith("execute ")) {
+                    String parts[] = command.split(" ");
+                    String arr[] = parts[1].split(",");
+                    int[] result = app.execute(arr);
+                    String resultStr = "";
+                    for (int i = 0; i < result.length; i++) {
+                        resultStr += Integer.toString(result[i]);
+                        if (i < result.length - 1)
+                            resultStr += ',';
+                    }
+                    System.out.println(resultStr);
+                } else {
+                    System.out.println("Unknown command.\nThe following commands are available:\nshow components, show current component, set current component <component>, execute <unsorted comma seperated list>");
+                }
+            }
+        }
+    }
 
     private void showComponents() {
         String out = "";
@@ -31,7 +65,6 @@ public class Application {
             e.printStackTrace();
         }
     }
-
 
     private void parseInputSelection(String input) {
         String parsedInput = input.toLowerCase().trim();
@@ -71,41 +104,5 @@ public class Application {
             e.printStackTrace();
         }
         return new int[0];
-    }
-
-    public static void main(String... args) {
-        Application app = new Application();
-        System.out.println("Please enter a command:");
-        boolean running = true;
-        Scanner scanner = new Scanner(System.in);
-        while (running) {
-            if(scanner.hasNextLine()) {
-                String command = scanner.nextLine();
-
-                if (command.equals("exit")) {
-                    running = false;
-                } else if (command.equals("show components")) {
-                    app.showComponents();
-                } else if (command.equals("show current component")) {
-                    app.showCurrentComponent();
-                } else if (command.startsWith("set current component ")) {
-                    String[] parts = command.split(" ");
-                    app.parseInputSelection(parts[3]);
-                } else if (command.startsWith("execute ")) {
-                    String parts[] = command.split(" ");
-                    String arr[] = parts[1].split(",");
-                    int[] result = app.execute(arr);
-                    String resultStr = "";
-                    for(int i = 0; i < result.length; i++) {
-                        resultStr += Integer.toString(result[i]);
-                        if(i < result.length - 1)
-                            resultStr += ',';
-                    }
-                    System.out.println(resultStr);
-                } else {
-                    System.out.println("Unknown command.\nThe following commands are available:\nshow components, show current component, set current component <component>, execute <unsorted comma seperated list>");
-                }
-            }
-        }
     }
 }

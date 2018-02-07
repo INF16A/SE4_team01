@@ -54,12 +54,10 @@ public class TestConfigurationFile {
             prop = null;
             store();
             Assert.fail();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
-        prop=new Properties();
+        prop = new Properties();
     }
 
     @Test
