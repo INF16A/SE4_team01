@@ -4,6 +4,7 @@ import org.junit.Test;
 public class SorterFactoryTest {
     @Test
     public void testFactory() {
+        Configuration.instance.getSorterType();
         Assert.assertNotNull(SorterFactory.create());
     }
 
