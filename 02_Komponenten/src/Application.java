@@ -72,37 +72,38 @@ public class Application {
 
     public static void main(String... args) {
         Application app = new Application();
-        System.out.println("Enter a command pls");
+        System.out.println("Please enter a command:");
         boolean running = true;
         while (running) {
             Scanner scanner = new Scanner(System.in);
+            if(scanner.hasNextLine()) {
+                String command = scanner.nextLine();
+                System.err.println(command);
 
-            String command = scanner.nextLine();
-
-            if (command.equals("exit")) {
-                running = false;
-            } else if (command.equals("show components")) {
-                app.showComponents();
-            } else if (command.equals("show current component")) {
-                app.showCurrentComponent();
-            } else if (command.startsWith("set current component ")) {
-                String[] parts = command.split(" ");
-                app.parseInputSelection(parts[3]);
-            } else if (command.startsWith("execute ")) {
-                String parts[] = command.split(" ");
-                String arr[] = parts[1].split(",");
-                int[] result = app.execute(arr);
-                String resultStr = "";
-                for(int i = 0; i < result.length; i++) {
-                    resultStr += Integer.toString(result[i]);
-                    if(i < result.length - 1)
-                        resultStr += ',';
+                if (command.equals("exit")) {
+                    running = false;
+                } else if (command.equals("show components")) {
+                    app.showComponents();
+                } else if (command.equals("show current component")) {
+                    app.showCurrentComponent();
+                } else if (command.startsWith("set current component ")) {
+                    String[] parts = command.split(" ");
+                    app.parseInputSelection(parts[3]);
+                } else if (command.startsWith("execute ")) {
+                    String parts[] = command.split(" ");
+                    String arr[] = parts[1].split(",");
+                    int[] result = app.execute(arr);
+                    String resultStr = "";
+                    for(int i = 0; i < result.length; i++) {
+                        resultStr += Integer.toString(result[i]);
+                        if(i < result.length - 1)
+                            resultStr += ',';
+                    }
+                    System.out.println(resultStr);
+                } else {
+                    System.out.println("Unknown command.\nThe following commands are available:\nshow components, show current component, set current component <component>, execute <unsorted comma seperated list>");
                 }
-                System.out.println(resultStr);
-            } else {
-                System.out.println("Unknown command.\nThe following commands are available:\nshow components, show current component, set current component <component>, execute <unsorted comma seperated list>");
             }
-
         }
     }
 }
