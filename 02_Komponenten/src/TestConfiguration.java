@@ -1,7 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ConfigurationTest {
+public class TestConfiguration {
     @Test
     public void testGetJarPath() {
         Configuration.instance.sortingAlgorithm = "SpicySort";

@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.io.FileOutputStream;
 import java.util.Properties;
 
-public class ConfigurationFileTest {
+public class TestConfigurationFile {
 
     private Properties prop = new Properties();
 
