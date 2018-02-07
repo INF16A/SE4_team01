@@ -13,18 +13,18 @@ public class TimeControl {
     private int ticksCount;
     private List<ITimeControlled> controllables = new ArrayList<>();
 
-    public void AddToTimeControl(ITimeControlled iTimeControlled) {
+    public void addToTimeControl(ITimeControlled iTimeControlled) {
         controllables.add(iTimeControlled);
     }
 
-    public void RemoveFromTimeControl(ITimeControlled iTimeControlled) {
+    public void removeFromTimeControl(ITimeControlled iTimeControlled) {
         controllables.remove(iTimeControlled);
     }
 
     public void Cycle() {
         System.out.print(ticksCount+"\t");
         for (int i = 0; i < controllables.size(); i++) {
-            controllables.get(i).Cycle();
+            controllables.get(i).cycle();
         }
         System.out.println();
         ticksCount++;

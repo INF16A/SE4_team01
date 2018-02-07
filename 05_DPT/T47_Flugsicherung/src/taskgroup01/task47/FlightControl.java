@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class LastPosition {
-    public int pos;
-    public int height;
+    public final int pos;
+    public final int height;
 
     public LastPosition(int pos, int height) {
         this.pos = pos;
@@ -41,7 +41,7 @@ public class FlightControl implements IFlightControl, IPositionListener {
         LastPosition loc2 = lastPositions.get(1);
         if (Math.abs(loc1.pos - loc2.pos) <= 40 && loc1.pos < loc2.pos) { //planes are one second apart
             if (loc1.height == loc2.height) { //planes will collide
-                if (Application.GetRandomChance() < 0.5) {
+                if (Application.getRandomChance() < 0.5) {
                     climbCommands.get(0).execute();
                 } else {
                     climbCommands.get(1).execute();

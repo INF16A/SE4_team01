@@ -18,7 +18,7 @@ public class Application {
 
     private static Random random = new Random();
 
-    public static float GetRandomChance() {
+    public static float getRandomChance() {
         return random.nextFloat();
     }
 }

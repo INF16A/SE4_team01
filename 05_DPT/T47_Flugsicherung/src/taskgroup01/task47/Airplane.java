@@ -19,7 +19,7 @@ public class Airplane implements IAirplane,ITimeControlled {
         this.speed = speed;
         this.position = startAirport.getLocation();
         this.name = name;
-        TimeControl.timeControl.AddToTimeControl(this);
+        TimeControl.timeControl.addToTimeControl(this);
         this.flightControl = fc;
         this.flightControl.registerAirplane(this);
     }
@@ -33,10 +33,10 @@ public class Airplane implements IAirplane,ITimeControlled {
     }
 
     @Override
-    public void Cycle() {
+    public void cycle() {
         position += speed;
         //change height random based
-        double chance = Application.GetRandomChance();
+        double chance = Application.getRandomChance();
         if (chance < changeHeightChance) {
             if (chance < changeHeightChance / 2) {
                 height += 250;

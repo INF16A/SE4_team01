@@ -57,7 +57,7 @@ public class TestPositionListenerAirplane {
         Assert.assertEquals(0, listener.callsCount);
         ap.addListener(listener);
         Assert.assertEquals(0, listener.callsCount);
-        ap.Cycle();
+        ap.cycle();
         Assert.assertEquals(1, listener.callsCount);
 
     }
@@ -70,9 +70,9 @@ public class TestPositionListenerAirplane {
         TestPositionListener listener = new TestPositionListener();
         Assert.assertEquals(0, listener.callsCount);
         ap.addListener(listener);
-        ap.Cycle();
+        ap.cycle();
         ap.removeListener(listener);
-        ap.Cycle();
+        ap.cycle();
         Assert.assertEquals(1, listener.callsCount);
 
     }

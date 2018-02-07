@@ -22,7 +22,7 @@ public class TestTimeControl {
         TimeControl tc = new TimeControl();
         testTimeControlledObject testObject = new testTimeControlledObject();
         tc.Cycle();
-        tc.AddToTimeControl(testObject);
+        tc.addToTimeControl(testObject);
         Assert.assertEquals(0, testObject.callsCount);
     }
 
@@ -30,9 +30,9 @@ public class TestTimeControl {
     public void TestTimeControlTestObjectCycle() {
         TimeControl tc = new TimeControl();
         testTimeControlledObject testObject = new testTimeControlledObject();
-        tc.AddToTimeControl(testObject);
+        tc.addToTimeControl(testObject);
         tc.Cycle();
-        tc.RemoveFromTimeControl(testObject);
+        tc.removeFromTimeControl(testObject);
         tc.Cycle();
         Assert.assertEquals(1, testObject.callsCount);
     }
@@ -41,7 +41,7 @@ public class TestTimeControl {
     public void TestRemoveListener() {
         TimeControl tc = new TimeControl();
         testTimeControlledObject testObject = new testTimeControlledObject();
-        tc.AddToTimeControl(testObject);
+        tc.addToTimeControl(testObject);
         tc.Cycle();
         Assert.assertEquals(1, testObject.callsCount);
 
@@ -56,7 +56,7 @@ public class TestTimeControl {
     @Test
     public void TestTestTimeControlCycle() {
         testTimeControlledObject testTimeControlledObject = new testTimeControlledObject();
-        testTimeControlledObject.Cycle();
+        testTimeControlledObject.cycle();
         Assert.assertEquals(1, testTimeControlledObject.callsCount);
     }
 
@@ -64,7 +64,7 @@ public class TestTimeControl {
         private int callsCount = 0;
 
         @Override
-        public void Cycle() {
+        public void cycle() {
             callsCount++;
         }
 
