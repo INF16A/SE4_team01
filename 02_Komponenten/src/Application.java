@@ -12,11 +12,14 @@ public class Application {
     private Object port;
 
     private void showComponents() {
+        String out = "";
         SorterType[] sorterTypes = SorterType.values();
         for (SorterType sorterType :
                 sorterTypes) {
-            System.out.println(sorterType.name());
+            out += sorterType.name();
+            out += ", ";
         }
+        System.out.println(out.substring(0, out.length() - 2));
     }
 
     private void showCurrentComponent() {
@@ -74,11 +77,10 @@ public class Application {
         Application app = new Application();
         System.out.println("Please enter a command:");
         boolean running = true;
+        Scanner scanner = new Scanner(System.in);
         while (running) {
-            Scanner scanner = new Scanner(System.in);
             if(scanner.hasNextLine()) {
                 String command = scanner.nextLine();
-                System.err.println(command);
 
                 if (command.equals("exit")) {
                     running = false;
