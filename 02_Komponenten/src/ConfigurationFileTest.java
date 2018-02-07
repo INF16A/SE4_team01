@@ -18,6 +18,14 @@ public class ConfigurationFileTest {
     }
 
     @Test
+    public void testInvalidSortType() {
+        prop.setProperty("sorterType", "");
+        store();
+
+        Assert.assertNull(Configuration.instance.getSorterType());
+    }
+
+    @Test
     public void testShakerSortType() {
         prop.setProperty("sorterType", "shaker");
         store();
@@ -32,25 +40,35 @@ public class ConfigurationFileTest {
     }
 
     @Test
+    public void testPropertyStore() {
+        Assert.assertEquals(SorterType.shaker, Configuration.instance.getSorterType());
+        prop.setProperty("sorterType", "intro");
+        store();
+        Assert.assertEquals(SorterType.intro, Configuration.instance.getSorterType());
+    }
+
+
+    @Test
     public void testPropertyStoreFail() {
         try {
             prop = null;
             store();
             Assert.fail();
-        } catch (RuntimeException e) {
+        }
+        catch (Exception e)
+        {
 
         }
+        prop=new Properties();
     }
 
     @Test
-    public void testPropertyRestoreFail() {
-        try {
-            prop = null;
-            restoreValues();
-            Assert.fail();
-        } catch (RuntimeException e) {
+    public void testPropertyRestore() {
+        prop.setProperty("sorterType", "shaker");
+        store();
 
-        }
+        restoreValues();
+        Assert.assertEquals(SorterType.shaker, Configuration.instance.getSorterType());
     }
 
     private void store() {
