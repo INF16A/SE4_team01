@@ -6,6 +6,6 @@ public class CsvParserTest {
     @Test
     public void processInputFileFail() {
         CsvParser cs = new CsvParser();
-        Assert.assertEquals(0, cs.processInputFile("").size() );
+        Assert.assertEquals(0, cs.processInputFile("").size());
     }
 }

@@ -5,21 +5,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class CsvParser {
-    public List<RecordLine> processInputFile(String inputFilePath) {
-        List<RecordLine> inputList = new ArrayList<RecordLine>();
-        try{
-            File inputF = new File(inputFilePath);
-            InputStream inputFS = new FileInputStream(inputF);
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputFS));
-            inputList = br.lines().map(mapToItem).collect(Collectors.toList());
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return inputList ;
-    }
-
-
     private Function<String, RecordLine> mapToItem = (line) -> {
         String[] p = line.split(";");// a CSV has comma separated lines
         RecordLine item = new RecordLine(
@@ -35,5 +20,19 @@ public class CsvParser {
         //more initialization goes here
         return item;
     };
+
+    public List<RecordLine> processInputFile(String inputFilePath) {
+        List<RecordLine> inputList = new ArrayList<RecordLine>();
+        try {
+            File inputF = new File(inputFilePath);
+            InputStream inputFS = new FileInputStream(inputF);
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputFS));
+            inputList = br.lines().map(mapToItem).collect(Collectors.toList());
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inputList;
+    }
 
 }

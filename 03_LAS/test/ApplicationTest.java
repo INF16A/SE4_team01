@@ -8,12 +8,12 @@ import java.util.TreeMap;
 public class ApplicationTest {
 
 
+    IQuery query;
+
     @Before
     public void setUp() {
         query = new Application();
     }
-
-    IQuery query;
 
     @Test
     public void MainTest() {

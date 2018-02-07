@@ -3,6 +3,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class RecordLineTest {
+    RecordLine recordLine;
+
     @Before
     public void setUp() throws Exception {
         recordLine = new RecordLine(0,
@@ -15,8 +17,6 @@ public class RecordLineTest {
                 5,
                 6);
     }
-
-    RecordLine recordLine;
 
     @Test
     public void getId() {

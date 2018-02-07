@@ -1,7 +1,6 @@
 import org.junit.Assert;
 
 import java.util.List;
-import java.util.Map;
 
 public class AssertList<E> {
     public static void AssertIntListContains(List<Integer> values, int... itemsToContain) {
