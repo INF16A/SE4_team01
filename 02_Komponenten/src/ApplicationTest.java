@@ -76,6 +76,14 @@ public class ApplicationTest {
         Assert.assertEquals("1,2,3,4", result);
     }
 
+    @Test
+    public void invalidNumberInput() {
+        String result = runApplicationWithCommand(
+                "execute a,2,3,1" + System.lineSeparator() +
+                        "exit");
+        Assert.assertEquals("Invalid number input", result);
+    }
+
 
     @After
     public void restoreOutStream() {
