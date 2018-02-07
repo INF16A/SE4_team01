@@ -1,7 +1,20 @@
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestConfiguration {
+
+
+    private String sortingAlgorithm, fileSeparator, userDirectory;
+
+    @Before
+    public void saveConfig() {
+        sortingAlgorithm = Configuration.instance.sortingAlgorithm;
+        fileSeparator = Configuration.instance.fileSeparator;
+        userDirectory = Configuration.instance.userDirectory;
+    }
+
     @Test
     public void testGetJarPath() {
         Configuration.instance.sortingAlgorithm = "SpicySort";
@@ -15,5 +28,11 @@ public class TestConfiguration {
         Assert.assertNull(Configuration.instance.getSorterType());
     }
 
+    @After
+    public void restoreConfiguration() {
+        Configuration.instance.sortingAlgorithm = sortingAlgorithm;
+        Configuration.instance.fileSeparator = fileSeparator;
+        Configuration.instance.userDirectory = userDirectory;
+    }
 
 }

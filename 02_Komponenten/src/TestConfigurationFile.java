@@ -77,7 +77,7 @@ public class TestConfigurationFile {
             prop.store(fos, "");
             fos.close();
         } catch (Exception e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
     }
