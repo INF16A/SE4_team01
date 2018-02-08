@@ -11,13 +11,14 @@ public abstract class VehicleStorageIterator<VhclStrg extends VehicleStorage> im
 
     @Override
     public boolean hasNext() {
-        return (vehicleStorage.getVehicleAt(index + 1) != null);
+        return (vehicleStorage.getVehicleAt(index) != null);
     }
 
     @Override
     public Vehicle next() {
+        Vehicle v = vehicleStorage.getVehicleAt(index); //also increment index for next time
         index++;
-        return vehicleStorage.getVehicleAt(index);
+        return v;
 
     }
 }

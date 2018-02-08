@@ -17,6 +17,10 @@ public abstract class VehicleStorage<Vhcl extends Vehicle> implements IAgregate 
         } else return null;
     }
 
+    public Vhcl getVehicleByPlate(String plate) {
+        return vehicles.stream().filter(v -> v.getLicensePlate().equals(plate)).findFirst().orElse(null);
+    }
+
     public int getLength() {
         return vehicles.size();
     }
@@ -30,4 +34,13 @@ public abstract class VehicleStorage<Vhcl extends Vehicle> implements IAgregate 
         return null;
     }
 
+    @Override
+    public String toString() {
+        // has to be weird string array because of lambda
+        final String[] str = {"[ "};
+        vehicles.forEach(v -> str[0] += v.toString() + " | ");
+        str[0] = str[0].substring(0, str[0].length() - 3);
+        str[0] += " ]";
+        return str[0];
+    }
 }
