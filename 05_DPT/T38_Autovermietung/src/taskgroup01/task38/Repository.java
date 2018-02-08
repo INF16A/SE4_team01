@@ -15,7 +15,7 @@ public class Repository {
     private IIterator v5Iterator;
 
     public Repository() {
-        // there must be a better way for this, but I can't think how
+        // there must be a better way for this, but I can't think how currently. TODO: make better
         v1Storage = new V1Storage(3);
         v1Iterator = v1Storage.iterator();
         v1Storage.appendVehicle(new V1("BS-AF1001"));
@@ -47,24 +47,39 @@ public class Repository {
         v5Storage.appendVehicle(new V5("BS-AF5003"));
     }
 
+    // there must be a better way for this, but I can't think how currently. TODO: make better
+    private Vehicle getVehicleByLicensePlate(String plate) {
+        Vehicle v = null;
+        v = v1Storage.getVehicleByPlate(plate);
+        if (v != null) return v;
+        v = v2Storage.getVehicleByPlate(plate);
+        if (v != null) return v;
+        v = v3Storage.getVehicleByPlate(plate);
+        if (v != null) return v;
+        v = v4Storage.getVehicleByPlate(plate);
+        if (v != null) return v;
+        v = v5Storage.getVehicleByPlate(plate);
+        return v;
+    }
+
     private VehicleStorage getStorageForVehicle(Vehicle v) {
-        switch(v.getClass().toString()) {
-            case "V1":
-                return v1Storage;
-            case "V2":
-                return v2Storage;
-            case "V3":
-                return v3Storage;
-            case "V4":
-                return v4Storage;
-            case "V5":
-                return v5Storage;
-        }
-        return null;
+        String className = v.getClass().toString();
+        if(className.contains("V1"))
+            return v1Storage;
+        else if(className.contains("V2"))
+            return v2Storage;
+        else if(className.contains("V3"))
+            return v3Storage;
+        else if(className.contains("V4"))
+            return v4Storage;
+        else if(className.contains("V5"))
+            return v5Storage;
+        else
+            return null;
     }
 
     private VehicleStorage getStorageForType(int vehicleType) {
-        switch(vehicleType) {
+        switch (vehicleType) {
             case 1:
                 return v1Storage;
             case 2:
@@ -80,7 +95,7 @@ public class Repository {
     }
 
     private IIterator getIteratorForType(int vehicleType) {
-        switch(vehicleType) {
+        switch (vehicleType) {
             case 1:
                 return v1Iterator;
             case 2:
@@ -100,36 +115,36 @@ public class Repository {
         VehicleStorage vehicleStorage = getStorageForType(vehicleType);
         IIterator vehicleIterator = getIteratorForType(vehicleType);
         if (vehicleStorage != null) {
-            if(vehicleIterator.hasNext()) {
+            if (vehicleIterator.hasNext()) {
                 //TODO rent
                 Vehicle vehicle = vehicleIterator.next();
-                vehicleStorage.getVehicleByPlate(vehicle.getLicensePlate()).setRentedBy(customer);
+                //vehicleStorage.getVehicleByPlate(vehicle.getLicensePlate()).setRentedBy(customer);
+                vehicleStorage.setTenant(vehicle, customer);
                 System.out.println("Rented car with plate " + vehicle.getLicensePlate() + " to " + customer.getName());
-            }
-            else {
+            } else {
                 //TODO reserve
             }
         }
     }
 
-    /*public void rentVehicle(Vehicle vehicle, Customer customer) {
-        VehicleStorage vehicleStorage = getStorageForVehicle(vehicle);
-        if (vehicleStorage != null) {
-            if(vehicleStorage.iterator().hasNext()) {
-                //TODO rent
-                vehicleStorage.getVehicleByPlate(vehicle.getLicensePlate()).setRentedBy(customer);
-            }
-            else {
-                //TODO reserve
-            }
-        }
-    }*/
-
-    public void returnVehicle(Vehicle v) {
-        VehicleStorage vs = getStorageForVehicle(v);
+    public void returnVehicle(String plate, Customer customer) {
+        Vehicle v = getVehicleByLicensePlate(plate);
         //TODO notify
-        if (vs != null) {
-            vs.getVehicleByPlate(v.getLicensePlate()).setRentedBy(null);
+        if (v != null) {
+            VehicleStorage vs = getStorageForVehicle(v);
+            if(v.getRentedBy() != null) {
+                if(v.getRentedBy().equals(customer)) {
+                    vs.setTenant(v, null);
+                    System.out.println("Successfully returned vehicle");
+                }
+                else {
+                    System.out.println("You are unauthorized to return the vehicle rented by " + v.getRentedBy().getName());
+                }
+            } else {
+                System.out.println("Can't return car that is not rented.");
+            }
+
+
         }
     }
 

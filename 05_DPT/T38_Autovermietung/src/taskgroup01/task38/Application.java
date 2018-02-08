@@ -1,6 +1,7 @@
 package taskgroup01.task38;
 
 import taskgroup01.task38.command.CommandRent;
+import taskgroup01.task38.command.CommandReturn;
 import taskgroup01.task38.command.ICommand;
 
 import java.util.Scanner;
@@ -13,12 +14,25 @@ public class Application {
     public Application() {
         repo = new Repository();
         customer = new Customer("CLI User");
+
+        //example data
+        rentVehicle("1");
+        rentVehicle("2");
+        rentVehicle("2");
+        rentVehicle("4");
+        rentVehicle("4");
+        rentVehicle("4");
     }
 
     private void rentVehicle(String type) {
         int t = Integer.parseInt(type);
         ICommand rent = new CommandRent(customer, t, repo);
         rent.execute();
+    }
+
+    private void returnVehicle(String plate) {
+        ICommand ret = new CommandReturn(customer, plate, repo);
+        ret.execute();
     }
 
     public static void main(String... args) {
@@ -36,6 +50,7 @@ public class Application {
                 } else if (cmd[0].contains("return")) {
                     String id = cmd[1];
                     System.out.println("you chose RETURN with id " + id);
+                    app.returnVehicle(id);
                 } else {
                     System.out.println("unrecognized command");
                 }

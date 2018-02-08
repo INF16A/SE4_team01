@@ -1,18 +1,20 @@
 package taskgroup01.task38.command;
 
+import taskgroup01.task38.Customer;
 import taskgroup01.task38.Repository;
-import taskgroup01.task38.Vehicle;
 
 public class CommandReturn implements ICommand{
-    private Vehicle vehicle;
-    private Repository repo;
+    private Customer customer;
+    private String plate;
+    private Repository repository;
 
-    public CommandReturn(Vehicle vehicle, Repository repo) {
-        this.vehicle = vehicle;
-        this.repo = repo;
+    public CommandReturn(Customer customer, String plate, Repository repository) {
+        this.customer = customer;
+        this.plate = plate;
+        this.repository = repository;
     }
 
     public void execute() {
-        repo.returnVehicle(vehicle);
+        repository.returnVehicle(plate, customer);
     }
 }

@@ -18,7 +18,11 @@ public abstract class VehicleStorage<Vhcl extends Vehicle> implements IAgregate 
     }
 
     public Vhcl getVehicleByPlate(String plate) {
-        return vehicles.stream().filter(v -> v.getLicensePlate().equals(plate)).findFirst().orElse(null);
+        return vehicles.stream().filter(v -> v.getLicensePlate().toLowerCase().equals(plate.toLowerCase())).findFirst().orElse(null);
+    }
+
+    public void setTenant(Vehicle v, Customer tenant) {
+        vehicles.get(vehicles.indexOf(v)).setRentedBy(tenant);
     }
 
     public int getLength() {
