@@ -2,6 +2,7 @@ package taskgroup01.task38;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class VehicleStorage<Vhcl extends Vehicle> implements IAgregate {
     private List<Vhcl> vehicles = new ArrayList<>();
@@ -23,6 +24,10 @@ public abstract class VehicleStorage<Vhcl extends Vehicle> implements IAgregate 
 
     public void setTenant(Vehicle v, Customer tenant) {
         vehicles.get(vehicles.indexOf(v)).setRentedBy(tenant);
+    }
+
+    public List<Vhcl> getFreeVehicles() {
+        return vehicles.stream().filter(v -> v.getRentedBy() == null).collect(Collectors.toList());
     }
 
     public int getLength() {

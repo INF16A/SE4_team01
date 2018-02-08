@@ -6,19 +6,18 @@ public abstract class VehicleStorageIterator<VhclStrg extends VehicleStorage> im
 
     public VehicleStorageIterator(VhclStrg vs) {
         this.vehicleStorage = vs;
-        this.index = 0;
     }
 
     @Override
     public boolean hasNext() {
-        return (vehicleStorage.getVehicleAt(index) != null);
+        return vehicleStorage.getFreeVehicles().size() > 0;
     }
 
     @Override
     public Vehicle next() {
-        Vehicle v = vehicleStorage.getVehicleAt(index); //also increment index for next time
-        index++;
-        return v;
+        return (Vehicle)vehicleStorage.getFreeVehicles().get(0);
 
     }
+
+
 }
