@@ -54,7 +54,7 @@ public class TestConfigurationFile {
             prop = null;
             store();
             Assert.fail();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         prop = new Properties();

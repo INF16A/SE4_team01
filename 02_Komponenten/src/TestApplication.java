@@ -1,7 +1,3 @@
-/**
- * Created by Leandro on 07.02.2018.
- */
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,7 +9,6 @@ import java.io.PrintStream;
 
 public class TestApplication {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
 
     @Before

@@ -2,9 +2,8 @@ import java.lang.reflect.Method;
 import java.util.Scanner;
 
 public class Application {
-    private Class _class;
-    private Object _classInstance;
     private Object port;
+
     private Application() {
         loadComponent(Configuration.instance.getSorterType());
     }
@@ -69,10 +68,10 @@ public class Application {
     private void parseInputSelection(String input) {
         String parsedInput = input.toLowerCase().trim();
         SorterType[] sorterTypes = SorterType.values();
-        for (int i = 0; i < sorterTypes.length; i++) {
-            if (parsedInput.equals(sorterTypes[i].name())) {
-                System.out.println(sorterTypes[i].name() + " sorter selected");
-                loadComponent(sorterTypes[i]);
+        for (SorterType sorterType : sorterTypes) {
+            if (parsedInput.equals(sorterType.name())) {
+                System.out.println(sorterType.name() + " sorter selected");
+                loadComponent(sorterType);
                 return;
             }
         }
@@ -92,7 +91,7 @@ public class Application {
                 values[i] = Integer.parseInt(arr[i]);
             }
             Method sortMethod = port.getClass().getMethod("sort", int[].class);
-            sortMethod.invoke(port, values);
+            sortMethod.invoke(port, (Object) values);
             return values;
 
         } catch (NumberFormatException e) {
