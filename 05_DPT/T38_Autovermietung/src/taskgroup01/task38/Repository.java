@@ -141,13 +141,13 @@ public class Repository {
                     reservation.sendNotification(v.getType());
                 }
                 else {
-                    System.out.println("You are unauthorized to return the vehicle rented by " + v.getRentedBy().getName());
+                    System.out.println("ERROR: You are unauthorized to return the vehicle rented by " + v.getRentedBy().getName());
                 }
             } else {
-                System.out.println("Can't return car that is not rented.");
+                System.out.println("ERROR: Can't return car that is not rented.");
             }
-
-
+        } else {
+            System.out.println("ERROR: No vehicle with plate " + plate + " exists");
         }
     }
 
