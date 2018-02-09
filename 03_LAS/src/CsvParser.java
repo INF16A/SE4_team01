@@ -7,7 +7,8 @@ import java.util.stream.Collectors;
 public class CsvParser {
     private Function<String, RecordLine> mapToItem = (line) -> {
         String[] p = line.split(";");// a CSV has comma separated lines
-        RecordLine item = new RecordLine(
+        //more initialization goes here
+        return new RecordLine(
                 Integer.parseInt(p[0]),
                 Integer.parseInt(p[1]),
                 Integer.parseInt(p[2]),
@@ -17,12 +18,10 @@ public class CsvParser {
                 Integer.parseInt(p[6]),
                 Integer.parseInt(p[7]),
                 Integer.parseInt(p[8]));
-        //more initialization goes here
-        return item;
     };
 
     public List<RecordLine> processInputFile(String inputFilePath) {
-        List<RecordLine> inputList = new ArrayList<RecordLine>();
+        List<RecordLine> inputList = new ArrayList<>();
         try {
             File inputF = new File(inputFilePath);
             InputStream inputFS = new FileInputStream(inputF);

@@ -41,7 +41,7 @@ public class Application implements IQuery {
 
     // count
     public long executeSQL01() {
-        long count = records.stream().count();
+        long count = (long) records.size();
         System.out.println("--- query 01 (count)");
         System.out.println(count);
         System.out.println();
