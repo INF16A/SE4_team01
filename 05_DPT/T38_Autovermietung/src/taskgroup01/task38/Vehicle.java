@@ -21,6 +21,10 @@ public class Vehicle {
         this.rentedBy = rentedBy;
     }
 
+    public int getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
         return licensePlate + " : " + ((rentedBy == null) ? "free" : rentedBy.toString());

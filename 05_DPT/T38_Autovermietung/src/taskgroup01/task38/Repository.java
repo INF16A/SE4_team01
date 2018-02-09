@@ -14,7 +14,11 @@ public class Repository {
     private IIterator v4Iterator;
     private IIterator v5Iterator;
 
+    Reservation reservation;
+
     public Repository() {
+        reservation = new Reservation();
+
         // there must be a better way for this, but I can't think how currently. TODO: make better
         v1Storage = new V1Storage(3);
         v1Iterator = v1Storage.iterator();
@@ -116,26 +120,25 @@ public class Repository {
         IIterator vehicleIterator = getIteratorForType(vehicleType);
         if (vehicleStorage != null) {
             if (vehicleIterator.hasNext()) {
-                //TODO rent
                 Vehicle vehicle = vehicleIterator.next();
-                //vehicleStorage.getVehicleByPlate(vehicle.getLicensePlate()).setRentedBy(customer);
                 vehicleStorage.setTenant(vehicle, customer);
                 System.out.println("Rented car with plate " + vehicle.getLicensePlate() + " to " + customer.getName());
             } else {
-                //TODO reserve
+                System.out.println("No car of the requested type available, a reservation will be remembered.");
+                reservation.addListener(vehicleType, customer);
             }
         }
     }
 
     public void returnVehicle(String plate, Customer customer) {
         Vehicle v = getVehicleByLicensePlate(plate);
-        //TODO notify
         if (v != null) {
             VehicleStorage vs = getStorageForVehicle(v);
             if(v.getRentedBy() != null) {
                 if(v.getRentedBy().equals(customer)) {
                     vs.setTenant(v, null);
                     System.out.println("Successfully returned vehicle");
+                    reservation.sendNotification(v.getType());
                 }
                 else {
                     System.out.println("You are unauthorized to return the vehicle rented by " + v.getRentedBy().getName());

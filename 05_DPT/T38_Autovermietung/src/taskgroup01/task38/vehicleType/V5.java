@@ -8,4 +8,9 @@ public class V5 extends Vehicle {
     public V5(String name) {
         super(name);
     }
+
+    @Override
+    public int getType() {
+        return type;
+    }
 }
