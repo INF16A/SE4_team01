@@ -30,6 +30,11 @@ public class ApplicationTest {
     }
 
     @Test
+    public  void testInvalidCommand(){
+        Assert.assertEquals("Please enter a valid command.", runApplicationWithCommand(""+exitCommand));
+    }
+
+    @Test
     public void testEmptyMessage() {
         Assert.assertEquals("Please enter a valid command.", runApplicationWithCommand("" + exitCommand));
     }
