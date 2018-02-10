@@ -59,7 +59,7 @@ public class Repository {
     private Vehicle getVehicleByLicensePlate(String plate) {
         for (VehicleStorage storage : storages) {
             Vehicle v = storage.getVehicleByPlate(plate);
-            if(v != null) return v;
+            if (v != null) return v;
         }
         return null;
     }
@@ -70,7 +70,7 @@ public class Repository {
         String[] classNameChecks = {"V1", "V2", "V3", "V4", "V5"};
         int i = 0;
         for (String classNameCheck : classNameChecks) {
-            if(className.contains(classNameCheck))
+            if (className.contains(classNameCheck))
                 return storages.get(i);
             i++;
         }
@@ -78,11 +78,17 @@ public class Repository {
     }
 
     private VehicleStorage getStorageForType(int vehicleType) {
-        return storages.get(vehicleType - 1);
+        if (vehicleType <= 5 && vehicleType >= 1) {
+            return storages.get(vehicleType - 1);
+        }
+        return null;
     }
 
     private IIterator getIteratorForType(int vehicleType) {
-        return iterators.get(vehicleType - 1);
+        if (vehicleType <= 5 && vehicleType >= 1) {
+            return iterators.get(vehicleType - 1);
+        }
+        return null;
     }
 
 
@@ -98,6 +104,8 @@ public class Repository {
                 System.out.println("No car of the requested type available, a reservation will be remembered.");
                 reservation.addListener(vehicleType, customer);
             }
+        } else {
+            System.out.println("Invalid vehicle type.");
         }
     }
 
