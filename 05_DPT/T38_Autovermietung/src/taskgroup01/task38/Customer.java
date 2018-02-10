@@ -1,7 +1,7 @@
 package taskgroup01.task38;
 
-public class Customer implements IReservationListener{
-    private String name = "";
+public class Customer implements IReservationListener {
+    private String name;
 
     public Customer(String name) {
         this.name = name;
