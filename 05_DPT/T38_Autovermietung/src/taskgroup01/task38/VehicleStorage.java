@@ -12,11 +12,6 @@ public abstract class VehicleStorage<Vhcl extends Vehicle> implements IAgregate 
         maximumIndex = maxSize;
     }
 
-    public Vhcl getVehicleAt(int index) {
-        if (index < maximumIndex) {
-            return vehicles.get(index);
-        } else return null;
-    }
 
     public Vhcl getVehicleByPlate(String plate) {
         return vehicles.stream().filter(v -> v.getLicensePlate().toLowerCase().equals(plate.toLowerCase())).findFirst().orElse(null);
@@ -30,18 +25,12 @@ public abstract class VehicleStorage<Vhcl extends Vehicle> implements IAgregate 
         return vehicles.stream().filter(v -> v.getRentedBy() == null).collect(Collectors.toList());
     }
 
-    public int getLength() {
-        return vehicles.size();
-    }
 
     public void appendVehicle(Vhcl v) {
         vehicles.add(v);
     }
 
-    public IIterator iterator() {
-        //return new taskgroup01.task38.VehicleStorageIterator(this);
-        return null;
-    }
+    public abstract IIterator iterator();
 
     @Override
     public String toString() {
