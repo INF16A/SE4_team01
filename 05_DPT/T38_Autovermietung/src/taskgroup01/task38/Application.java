@@ -38,28 +38,27 @@ public class Application {
     public static void main(String... args) {
         Application app = new Application();
         System.out.println("Commands: RENT <type (number)>, RETURN <id>, EXIT");
-        boolean running = true;
-        while (running) {
-            Scanner scanner = new Scanner(System.in);
-            String[] cmd = scanner.nextLine().toLowerCase().split(" ");
-            if (cmd.length >= 2) {
-                if (cmd[0].contains("rent")) {
-                    String type = cmd[1];
-                    System.out.println("you chose RENT with type " + type);
-                    app.rentVehicle(type);
-                } else if (cmd[0].contains("return")) {
-                    String id = cmd[1];
-                    System.out.println("you chose RETURN with id " + id);
-                    app.returnVehicle(id);
-                } else {
-                    System.out.println("unrecognized command");
-                }
-            } else if (cmd[0].contains("exit")) {
-                running = false;
-                break;
-            } else {
-                System.out.println("no parameter given");
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            if (!scanner.hasNextLine()) {
+                continue;
             }
+            String input = scanner.nextLine().toLowerCase().trim();
+
+            if (input.startsWith("exit")) {
+                break;
+            }
+            if (!input.contains(" ")) {
+                System.out.println("Please enter a valid command.");
+                continue;
+            }
+            String parameter = input.substring(input.indexOf(' ')).trim();
+            if (input.startsWith("rent ")) {
+                app.rentVehicle(parameter);
+            } else if (input.startsWith("return ")) {
+                app.returnVehicle(parameter);
+            }
+
         }
 
 
