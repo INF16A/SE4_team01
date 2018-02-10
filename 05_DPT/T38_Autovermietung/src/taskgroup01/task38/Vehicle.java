@@ -1,6 +1,6 @@
 package taskgroup01.task38;
 
-public class Vehicle {
+public abstract class Vehicle {
     private int type = 0;
     private String licensePlate;
     private Customer rentedBy;
