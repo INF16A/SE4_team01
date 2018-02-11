@@ -37,14 +37,14 @@ public class AssertListTest {
     public void TestListContainsSequenceMatch() {
         Integer[] rawData = new Integer[]{1, 2, 3};
         List<Integer> list = Arrays.asList(rawData);
-        new AssertList().AssertListContains(list, rawData);
+        new AssertList().AssertListContains(list, (Object[]) rawData);
     }
 
     @Test
     public void TestListContainsUnordered() {
         Integer[] rawData = new Integer[]{3, 2, 1};
         List<Integer> list = Arrays.asList(1, 2, 3);
-        new AssertList().AssertListContains(list, rawData);
+        new AssertList().AssertListContains(list, (Object[]) rawData);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class AssertListTest {
         try {
             Integer[] rawData = new Integer[]{1, 2, 3};
             List<Integer> list = Arrays.asList(2, 2, 3);
-            new AssertList().AssertListContains(list, rawData);
+            new AssertList().AssertListContains(list, (Object[]) rawData);
 
             Assert.fail();
         } catch (AssertionError e) {
