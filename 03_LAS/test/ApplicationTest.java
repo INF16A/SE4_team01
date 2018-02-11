@@ -17,7 +17,7 @@ public class ApplicationTest {
 
     @Test
     public void MainTest() {
-        Application.main(null);
+        Application.main((String[]) null);
     }
 
     @Test
