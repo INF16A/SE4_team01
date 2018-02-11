@@ -6,7 +6,7 @@ import java.util.TreeMap;
 
 public class AssertMapTest {
     @Test
-    public void TestMapContainsSequenceMatch() {
+    public void testMapContainsSequenceMatch() {
         Map<Integer, Character> map = new TreeMap<>();
         map.put(1, 'A');
         map.put(2, 'B');
@@ -15,11 +15,11 @@ public class AssertMapTest {
         testMap.put(2, 'B');
         testMap.put(1, 'A');
 
-        new AssertMap<Integer, Character>().AssertMapContains(map, testMap);
+        new AssertMap<Integer, Character>().assertMapContains(map, testMap);
     }
 
     @Test
-    public void TestMapContainsUnordered() {
+    public void testMapContainsUnordered() {
         Map<Integer, Character> map = new TreeMap<>();
         map.put(1, 'A');
         map.put(2, 'B');
@@ -28,11 +28,11 @@ public class AssertMapTest {
         testMap.put(1, 'A');
         testMap.put(2, 'B');
 
-        new AssertMap<Integer, Character>().AssertMapContains(map, testMap);
+        new AssertMap<Integer, Character>().assertMapContains(map, testMap);
     }
 
     @Test
-    public void TestMapContainsFail() {
+    public void testMapContainsFail() {
         try {
             Map<Integer, Character> map = new TreeMap<>();
             map.put(1, 'A');
@@ -41,7 +41,7 @@ public class AssertMapTest {
             Map<Integer, Character> testMap = new TreeMap<>();
             testMap.put(2, 'B');
 
-            new AssertMap<Integer, Character>().AssertMapContains(map, testMap);
+            new AssertMap<Integer, Character>().assertMapContains(map, testMap);
             Assert.fail();
         } catch (AssertionError e) {
             //works
