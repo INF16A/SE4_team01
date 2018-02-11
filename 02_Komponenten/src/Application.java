@@ -75,7 +75,7 @@ public class Application {
                 return;
             }
         }
-        System.out.println("selection not changed '" + parsedInput + "'");
+        System.out.println("selection not changed, invalid input '" + parsedInput + "'");
     }
 
     private void loadComponent(SorterType num) {

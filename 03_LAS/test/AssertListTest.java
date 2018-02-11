@@ -6,25 +6,25 @@ import java.util.List;
 
 public class AssertListTest {
     @Test
-    public void TestIntListContainsSequenceMatch() {
+    public void testIntListContainsSequenceMatch() {
         int[] rawData = new int[]{1, 2, 3};
         List<Integer> list = Arrays.asList(1, 2, 3);
-        AssertList.AssertIntListContains(list, rawData);
+        AssertList.assertIntListContains(list, rawData);
     }
 
     @Test
-    public void TestIntListContainsUnordered() {
+    public void testIntListContainsUnordered() {
         int[] rawData = new int[]{3, 2, 1};
         List<Integer> list = Arrays.asList(1, 2, 3);
-        AssertList.AssertIntListContains(list, rawData);
+        AssertList.assertIntListContains(list, rawData);
     }
 
     @Test
-    public void TestIntListContainsFail() {
+    public void testIntListContainsFail() {
         try {
             int[] rawData = new int[]{1, 2, 3};
             List<Integer> list = Arrays.asList(2, 2, 3);
-            AssertList.AssertIntListContains(list, rawData);
+            AssertList.assertIntListContains(list, rawData);
 
             Assert.fail();
         } catch (AssertionError e) {
@@ -34,25 +34,25 @@ public class AssertListTest {
 
 
     @Test
-    public void TestListContainsSequenceMatch() {
+    public void testListContainsSequenceMatch() {
         Integer[] rawData = new Integer[]{1, 2, 3};
         List<Integer> list = Arrays.asList(rawData);
-        new AssertList().AssertListContains(list, (Object[]) rawData);
+        new AssertList().assertListContains(list, (Object[]) rawData);
     }
 
     @Test
-    public void TestListContainsUnordered() {
+    public void testListContainsUnordered() {
         Integer[] rawData = new Integer[]{3, 2, 1};
         List<Integer> list = Arrays.asList(1, 2, 3);
-        new AssertList().AssertListContains(list, (Object[]) rawData);
+        new AssertList().assertListContains(list, (Object[]) rawData);
     }
 
     @Test
-    public void TestListContainsFail() {
+    public void testListContainsFail() {
         try {
             Integer[] rawData = new Integer[]{1, 2, 3};
             List<Integer> list = Arrays.asList(2, 2, 3);
-            new AssertList().AssertListContains(list, (Object[]) rawData);
+            new AssertList().assertListContains(list, (Object[]) rawData);
 
             Assert.fail();
         } catch (AssertionError e) {

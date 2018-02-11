@@ -16,7 +16,7 @@ public class ApplicationTest {
     }
 
     @Test
-    public void MainTest() {
+    public void mainTest() {
         Application.main((String[]) null);
     }
 
@@ -44,12 +44,12 @@ public class ApplicationTest {
 
     @Test
     public void executeSQL05() {
-        AssertList.AssertIntListContains(query.executeSQL05(), 614041, 651807, 798192);
+        AssertList.assertIntListContains(query.executeSQL05(), 614041, 651807, 798192);
     }
 
     @Test
     public void executeSQL06() {
-        AssertList.AssertIntListContains(query.executeSQL06(), 970370);
+        AssertList.assertIntListContains(query.executeSQL06(), 970370);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class ApplicationTest {
         m.put('E', 135157L);
         m.put('B', 135671L);
         m.put('F', 149630L);
-        new AssertMap<Character, Long>().AssertMapContains(query.executeSQL07(), m);
+        new AssertMap<Character, Long>().assertMapContains(query.executeSQL07(), m);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class ApplicationTest {
         m.put(1, 112L);
         m.put(5, 111L);
         m.put(4, 98L);
-        new AssertMap<Integer, Long>().AssertMapContains(query.executeSQL08(), m);
+        new AssertMap<Integer, Long>().assertMapContains(query.executeSQL08(), m);
 
     }
 
@@ -96,7 +96,7 @@ public class ApplicationTest {
         m.put('E', 29631L);
         m.put('A', 48721L);
         m.put('C', 22018L);
-        new AssertMap<Character, Long>().AssertMapContains(query.executeSQL10(), m);
+        new AssertMap<Character, Long>().assertMapContains(query.executeSQL10(), m);
     }
 
     @Test
@@ -106,7 +106,7 @@ public class ApplicationTest {
         m.put('E', 150L);
         m.put('F', 236L);
         m.put('G', 118L);
-        new AssertMap<Character, Long>().AssertMapContains(query.executeSQL11(), m);
+        new AssertMap<Character, Long>().assertMapContains(query.executeSQL11(), m);
     }
 
     @Test
@@ -117,6 +117,6 @@ public class ApplicationTest {
         m.put(10, 25L);
         m.put(50, 26L);
         m.put(20, 28L);
-        new AssertMap<Integer, Long>().AssertMapContains(query.executeSQL12(), m);
+        new AssertMap<Integer, Long>().assertMapContains(query.executeSQL12(), m);
     }
 }
