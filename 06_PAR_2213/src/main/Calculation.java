@@ -1,48 +1,34 @@
 package main;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.util.Pair;
 
-import java.util.Map;
 import java.util.concurrent.Callable;
 
-public class Calculation implements Callable<Pair<Integer, Boolean>> {
-    private int inputNumber;
-
-    private boolean result;
+public class Calculation implements Callable<Pair<Long, Boolean>> {
+    private long inputNumber;
 
     public Calculation() {
 
     }
 
-    public Calculation(int num) {
+    public Calculation(long num) {
         inputNumber = num;
     }
 
     @Override
-    public Pair<Integer, Boolean> call() throws Exception {
-        calculate(inputNumber);
+    public Pair<Long, Boolean> call() throws Exception {
+        boolean result = calculate(inputNumber);
         return new Pair<>(inputNumber, result);
     }
 
-    public int getInputNumber() {
-        return inputNumber;
-    }
-/*
-    @Override
-    public void run() {
-        calculate(inputNumber);
-    }*/
-
-    public boolean calculate(int input) {
+    public boolean calculate(long input) {
         if (input < 100) return false;
-        String numStr = Integer.toString(input);
+        String numStr = Long.toString(input);
         int length = numStr.length();
 
         int[] parts = {length - 2, 1, 1};
         parts[0]--;
         parts[2]++;
-        result = false;
         for (parts[0] = 1; parts[0] <= length - 2; parts[0]++) {
             for (parts[1] = 1; parts[1] <= length - 1 - parts[0]; parts[1]++) {
                 parts[2] = length - parts[0] - parts[1];
@@ -52,14 +38,13 @@ public class Calculation implements Callable<Pair<Integer, Boolean>> {
                 int c = Integer.parseInt(numStr.substring(parts[0] + parts[1], parts[0] + parts[1] + parts[2]));
                 //System.out.println();
                 //System.out.print(Integer.toString(a) + " " + Integer.toString(b) + " " + Integer.toString(c) + " " );
-                long sum = (long)Math.pow(a, 3);
-                if(sum > input) break;
-                sum += (long)Math.pow(b, 3);
-                if(sum > input) break;
-                sum += (long)Math.pow(c, 3);
+                long sum = (long) Math.pow(a, 3);
+                if (sum > input) break;
+                sum += (long) Math.pow(b, 3);
+                if (sum > input) break;
+                sum += (long) Math.pow(c, 3);
                 //System.out.println(sum);
-                if(sum == input) {
-                    result = true;
+                if (sum == input) {
                     return true;
                 }
 

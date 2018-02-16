@@ -1,3 +1,4 @@
+import javafx.util.Pair;
 import main.Calculation;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,6 +21,14 @@ public class CalculationTest {
     @Test
     public void correctNumber() {
         Assert.assertEquals(true, calc.calculate(2213));
-		Assert.assertEquals(true, calc.calculate(333667001));
+        Assert.assertEquals(true, calc.calculate(333667001));
+    }
+
+    @Test
+    public void testCallable() throws Exception {
+        Calculation callableCalc = new Calculation(2213);
+        Assert.assertEquals(new Pair<>(2213L, true), callableCalc.call());
+        callableCalc = new Calculation(2212);
+        Assert.assertEquals(new Pair<>(2212L, false), callableCalc.call());
     }
 }
