@@ -20,19 +20,9 @@ public class Application {
     public static void main(String[] args) {
         int maxThreads = Runtime.getRuntime().availableProcessors();
 
-        /* //test for how long the prime number generator takes
-        long startTime = System.currentTimeMillis();
-        long curNumber = 0;
-        long maximum = 1_000_000;
-        BigInteger test = BigInteger.ONE;
-        while(BigInteger.valueOf(maximum).compareTo(test) > 0 ) {
-            test = test.nextProbablePrime();
-        }
-        System.out.println("Generation of " + Long.toString(maximum) +" prime numbers took " + Long.toString(System.currentTimeMillis() - startTime) + "ms");
-        */
+        System.out.println("The next number is at approximately 334 Million. It took about 12 minutes on my machine to find it.");
 
-
-        long interval = 1000000;
+        long interval = 100000;
         List<PrimeGenerator> pgs = new ArrayList<>();
         for (int i = 0; i < maxThreads; i++) {
             PrimeGenerator pg = new PrimeGenerator(interval * i, interval, maxThreads);
