@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class Application {
 
-    Repository repo;
-    Customer customer;
+    private Repository repo;
+    private Customer customer;
 
-    public Application() {
+    private Application() {
         repo = new Repository();
         customer = new Customer("CLI User");
 

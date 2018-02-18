@@ -9,7 +9,7 @@ public class Reservation {
     private Map<Integer, List<IReservationListener>> reservations = new HashMap<>();
     private Repository repository;
 
-    public Reservation(Repository repository) {
+    Reservation(Repository repository) {
         this.repository = repository;
         for (int i = 0; i < 5; i++) {
             reservations.put(i + 1, new ArrayList<>());
@@ -17,7 +17,7 @@ public class Reservation {
 
     }
 
-    public void sendNotification(int type) {
+    void sendNotification(int type) {
         if(reservations.get(type).size() > 0) {
             IReservationListener listener = reservations.get(type).remove(0);
             listener.reservationNotification();
@@ -26,7 +26,7 @@ public class Reservation {
         }
     }
 
-    public void addListener(int type, IReservationListener listener) {
+    void addListener(int type, IReservationListener listener) {
         //listeners.add(listener);
         reservations.get(type).add(listener);
     }
