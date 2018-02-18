@@ -96,6 +96,7 @@ public class Repository {
         VehicleStorage vehicleStorage = getStorageForType(vehicleType);
         IIterator vehicleIterator = getIteratorForType(vehicleType);
         if (vehicleStorage != null) {
+            assert vehicleIterator != null;
             if (vehicleIterator.hasNext()) {
                 Vehicle vehicle = vehicleIterator.next();
                 vehicleStorage.setTenant(vehicle, customer);
@@ -115,6 +116,7 @@ public class Repository {
             VehicleStorage vs = getStorageForVehicle(v);
             if (v.getRentedBy() != null) {
                 if (v.getRentedBy().equals(customer)) {
+                    assert vs != null;
                     vs.setTenant(v, null);
                     System.out.println("Successfully returned vehicle");
                     reservation.sendNotification(v.getType());

@@ -9,15 +9,15 @@ public abstract class Vehicle {
         this.licensePlate = licensePlate;
     }
 
-    public String getLicensePlate() {
+    String getLicensePlate() {
         return licensePlate;
     }
 
-    public Customer getRentedBy() {
+    Customer getRentedBy() {
         return rentedBy;
     }
 
-    public void setRentedBy(Customer rentedBy) {
+    void setRentedBy(Customer rentedBy) {
         this.rentedBy = rentedBy;
     }
 

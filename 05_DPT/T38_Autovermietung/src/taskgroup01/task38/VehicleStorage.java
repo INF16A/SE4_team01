@@ -13,20 +13,20 @@ public abstract class VehicleStorage<Vhcl extends Vehicle> implements IAgregate 
     }
 
 
-    public Vhcl getVehicleByPlate(String plate) {
+    Vhcl getVehicleByPlate(String plate) {
         return vehicles.stream().filter(v -> v.getLicensePlate().toLowerCase().equals(plate.toLowerCase())).findFirst().orElse(null);
     }
 
-    public void setTenant(Vehicle v, Customer tenant) {
+    void setTenant(Vehicle v, Customer tenant) {
         vehicles.get(vehicles.indexOf(v)).setRentedBy(tenant);
     }
 
-    public List<Vhcl> getFreeVehicles() {
+    List<Vhcl> getFreeVehicles() {
         return vehicles.stream().filter(v -> v.getRentedBy() == null).collect(Collectors.toList());
     }
 
 
-    public void appendVehicle(Vhcl v) {
+    protected void appendVehicle(Vhcl v) {
         vehicles.add(v);
     }
 
