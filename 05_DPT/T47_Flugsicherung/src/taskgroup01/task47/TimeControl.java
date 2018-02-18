@@ -22,8 +22,9 @@ class TimeControl {
 
     void Cycle() {
         System.out.print(ticksCount + "\t");
-        for (ITimeControlled controllable : controllables) {
-            controllable.cycle();
+        //has to be normal for loop because of ConcurrentModification
+        for (int i = 0; i < controllables.size(); i++) {
+            controllables.get(i).cycle();
         }
         System.out.println();
         ticksCount++;
