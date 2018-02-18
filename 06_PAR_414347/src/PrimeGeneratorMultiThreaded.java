@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 public class PrimeGeneratorMultiThreaded implements IPrimeStrategy {
 
     private static final int tasksCount = Runtime.getRuntime().availableProcessors();
-    private static final int startExponent = 6;
+    private static final int startExponent = 5;
     private int taskStopCounter = tasksCount;
     private List<IPrimeListener> primeListeners;
     private TreeSet<BlockResult> primeBuffer;

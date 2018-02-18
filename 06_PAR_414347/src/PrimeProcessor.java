@@ -54,6 +54,4 @@ public class PrimeProcessor implements IPrimeListener {
         results.forEach(System.out::println);
         System.out.println("goodbye");
     }
-
-
 }
