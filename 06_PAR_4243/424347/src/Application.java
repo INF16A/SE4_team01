@@ -8,6 +8,7 @@ public class Application {
         IPrimeStrategy prime = new PrimeGeneratorMultiThreaded();
         PrimeProcessor pm = new PrimeProcessor();
         prime.addListener(pm);
+        System.out.println("press any key to stop.");
         System.out.println("starting prime generator");
         prime.start();
         Timer tr = new Timer();
