@@ -7,10 +7,6 @@ import java.util.concurrent.Callable;
 public class Calculation implements Callable<Pair<Long, Boolean>> {
     private long inputNumber;
 
-    public Calculation() {
-
-    }
-
     public Calculation(long num) {
         inputNumber = num;
     }
@@ -36,14 +32,12 @@ public class Calculation implements Callable<Pair<Long, Boolean>> {
                 int a = Integer.parseInt(numStr.substring(0, parts[0]));
                 int b = Integer.parseInt(numStr.substring(parts[0], parts[0] + parts[1]));
                 int c = Integer.parseInt(numStr.substring(parts[0] + parts[1], parts[0] + parts[1] + parts[2]));
-                //System.out.println();
-                //System.out.print(Integer.toString(a) + " " + Integer.toString(b) + " " + Integer.toString(c) + " " );
+
                 long sum = (long) Math.pow(a, 3);
                 if (sum > input) break;
                 sum += (long) Math.pow(b, 3);
                 if (sum > input) break;
                 sum += (long) Math.pow(c, 3);
-                //System.out.println(sum);
                 if (sum == input) {
                     return true;
                 }
@@ -52,16 +46,4 @@ public class Calculation implements Callable<Pair<Long, Boolean>> {
         }
         return false;
     }
-
-    /*private int doCubic(int num, int[] parts) {
-        String numStr = Integer.toString(num);
-        int a = Integer.parseInt(numStr.substring(0, parts[0]));
-        int b = Integer.parseInt(numStr.substring(parts[0], parts[0] + parts[1]));
-        int c = Integer.parseInt(numStr.substring(parts[0] + parts[1], parts[0] + parts[1] + parts[2]));
-
-        int sum = (int)Math.pow(a, 3);
-        sum += Math.pow(b, 3);
-        sum += Math.pow(c, 3);
-        return sum;
-    }*/
 }

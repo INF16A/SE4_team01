@@ -8,15 +8,6 @@ import java.util.List;
 import java.util.stream.LongStream;
 
 public class Application {
-    static BigInteger bigInt = BigInteger.ONE;
-    static List<Long> results = new ArrayList<>();
-
-    public static long nextPrime() {
-        bigInt = bigInt.nextProbablePrime();
-        return bigInt.longValue();
-    }
-
-
     public static void main(String[] args) {
         int maxThreads = Runtime.getRuntime().availableProcessors();
 
@@ -36,7 +27,7 @@ public class Application {
                 e.printStackTrace();
             }
             return new Pair<>(0, false);
-        }).filter(Pair::getValue).map(Pair::getKey).forEach(res -> System.out.println("RESULT: " + res.toString())));
+        }).filter(Pair::getValue).map(Pair::getKey).forEach(res -> System.out.println("\r\nRESULT: " + res.toString())));
     }
 
 
