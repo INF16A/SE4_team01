@@ -7,6 +7,9 @@ import java.util.concurrent.Callable;
 public class Calculation implements Callable<Pair<Long, Boolean>> {
     private long inputNumber;
 
+    public Calculation() {
+    }
+
     public Calculation(long num) {
         inputNumber = num;
     }
