@@ -10,12 +10,13 @@ public class PrimeGeneratorMultiThreaded implements IPrimeStrategy {
     public PrimeGeneratorMultiThreaded() {
         this.primeListeners = new ArrayList<>();
         this.primeBuffer = new TreeSet<>();
-        //TODO make variable
         this.executorService = Executors.newFixedThreadPool(tasksCount);
     }
 
     private static final int tasksCount = Runtime.getRuntime().availableProcessors();
-    private static final int startExponent = 5;
+    private static final int startExponent = 6;
+    private int taskStopCounter = tasksCount;
+
     private List<IPrimeListener> primeListeners;
     private TreeSet<BlockResult> primeBuffer;
     private BigInteger nextBlockStart;
@@ -31,34 +32,33 @@ public class PrimeGeneratorMultiThreaded implements IPrimeStrategy {
 
     private void startTask() {
         nextBlockStart = BigInteger.ZERO;
-        // TODO make variable
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < tasksCount; i++) {
             final int multiplier = i;
             executorService.submit(() -> generatePrimes(multiplier, tasksCount));
         }
         System.out.println("started");
     }
 
-    private void receiveBlockResult(BlockResult result) {
+    private synchronized void receiveBlockResult(BlockResult result) {
         primeBuffer.add(result);
-        processBlocks();
-    }
 
-    private void processBlocks() {
-        for (BlockResult blockToCompare = primeBuffer.first();
-             blockToCompare.getBlockStart().equals(nextBlockStart);
-             blockToCompare = primeBuffer.first()) {
-            processBlock(blockToCompare);
+        BlockResult blockToCompare = primeBuffer.first();
+
+        for (; blockToCompare.getBlockStart().equals(nextBlockStart) && !primeBuffer.isEmpty(); ) {
+            blockToCompare.getPrimes().forEach(this::publishPrime);
+
+            primeBuffer.remove(blockToCompare);
+            nextBlockStart = blockToCompare.getNextBlockStart();
+
+            if (!primeBuffer.isEmpty()) {
+                blockToCompare = primeBuffer.first();
+            } else {
+                break;
+            }
+
         }
-    }
 
-    private void processBlock(BlockResult block) {
-        // publish primes
-        block.getPrimes().forEach(this::publishPrime);
-        // remove from buffer
-        primeBuffer.remove(block);
-        // set next block
-        nextBlockStart = block.getNextBlockStart();
+
     }
 
     private void generatePrimes(int startMultiplier, int tasksCount) {
@@ -75,13 +75,26 @@ public class PrimeGeneratorMultiThreaded implements IPrimeStrategy {
 
         receiveBlockResult(new BlockResult(startValue, endValue, primes));
 
+
         if (running) {
-            executorService.submit(() ->
+            executorService.execute(() ->
                     generatePrimes(startMultiplier + tasksCount, tasksCount));
-            System.out.println("task finished:" + startMultiplier);
-            return;
+        } else {
+            System.out.println("[" + startMultiplier % tasksCount + "] generator stopped at" + endValue.toString());
+            receiveStops();
         }
-        System.out.println(startMultiplier % tasksCount + "generator stopped");
+
+    }
+
+    private int ctr = 0;
+
+    private synchronized void receiveStops() {
+        System.out.println("stop received." + ctr++);
+        if (--taskStopCounter == 0) {
+            System.out.println("stop fired.");
+            executorService.shutdown();
+            primeListeners.forEach(IPrimeListener::primeGeneratorStopped);
+        }
     }
 
     private void publishPrime(BigInteger prime) {
@@ -91,7 +104,6 @@ public class PrimeGeneratorMultiThreaded implements IPrimeStrategy {
     @Override
     public void stop() {
         running = false;
-        primeListeners.forEach(IPrimeListener::primeGeneratorStopped);
     }
 
     @Override

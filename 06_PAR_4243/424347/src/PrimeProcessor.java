@@ -1,52 +1,59 @@
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Future;
 
 public class PrimeProcessor implements IPrimeListener {
 
     public PrimeProcessor() {
         this.executorService = Executors.newFixedThreadPool(tasksCount);
-        this.results = new TreeSet<>();
+        this.tasks = new ArrayList<>();
     }
 
     private static final int tasksCount = Runtime.getRuntime().availableProcessors();
     private ExecutorService executorService;
     private BigInteger lastPrime1;
     private BigInteger lastPrime2;
-    private TreeSet<BigInteger> results;
-
-    private synchronized void addValue(BigInteger value) {
-        results.add(value);
-    }
+    private List<Future<BigInteger>> tasks;
 
     @Override
     public void primeGenerated(BigInteger nextPrime) {
         if (lastPrime1 != null && lastPrime2 != null) {
             String value = lastPrime2.toString() + lastPrime1.toString() + nextPrime.toString();
-            executorService.execute(() -> {
+
+            tasks.add(executorService.submit(() -> {
                 if (check(value)) {
-                    addValue(new BigInteger(value));
+                    return new BigInteger(value);
                 }
-            });
-        } else {
-            System.out.println("waiting for more primes...");
+                return null;
+            }));
         }
         lastPrime2 = lastPrime1;
         lastPrime1 = nextPrime;
-
     }
+
 
     @Override
     public void primeGeneratorStopped() {
-        executorService.shutdown();
-        try {
-            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        System.out.println("processing remaining primes");
+        TreeSet<BigInteger> results = new TreeSet<>();
+        for (Future<BigInteger> task : tasks) {
+            try {
+                BigInteger result = task.get();
+                if (result != null) {
+                    results.add(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        results.forEach(prime -> System.out.println(prime));
+        executorService.shutdown();
+        System.out.println("printing " + results.size() + " results now");
+        results.forEach(System.out::println);
+        System.out.println("goodbye");
     }
 
     private boolean check(String input) {
@@ -69,15 +76,6 @@ public class PrimeProcessor implements IPrimeListener {
             sum += Long.parseLong(input.substring(idx, idx += divLength));
         }
         BigInteger val = BigInteger.valueOf(sum);
-        return val.isProbablePrime(Integer.MAX_VALUE);//.subtract(BigInteger.ONE).nextProbablePrime().equals(val);
-        //
-    }
-
-    public static BigInteger stickTogether(BigInteger val1, BigInteger val2, BigInteger val3) {
-        int val3Length = (val3).toString().length();
-        int val2Length = (val2).toString().length();
-        BigInteger shifted1 = val1.multiply(BigInteger.TEN.pow(val2Length + val3Length));
-        BigInteger shifted2 = val2.multiply(BigInteger.TEN.pow(val3Length));
-        return val3.add(shifted2).add(shifted1);
+        return val.subtract(BigInteger.ONE).nextProbablePrime().equals(val);
     }
 }

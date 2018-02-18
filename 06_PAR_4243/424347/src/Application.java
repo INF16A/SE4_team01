@@ -21,6 +21,7 @@ public class Application {
                             if (System.in.available() > 0) {
                                 prime.stop();
                                 System.out.println("stopping prime generator");
+                                this.cancel();
                                 tr.cancel();
                             }
                         } catch (Exception e) {
