@@ -12,7 +12,7 @@ public class Repository {
     private Reservation reservation;
 
     public Repository() {
-        reservation = new Reservation();
+        reservation = new Reservation(this);
 
         // there must be a better way for this, but I can't think how currently. TODO: make better
         V1Storage v1Storage = new V1Storage(3);
