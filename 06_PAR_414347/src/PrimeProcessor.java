@@ -13,6 +13,7 @@ public class PrimeProcessor implements IPrimeListener {
     private BigInteger lastPrime1;
     private BigInteger lastPrime2;
     private List<Future<BigInteger>> tasks;
+
     public PrimeProcessor() {
         this.executorService = Executors.newFixedThreadPool(tasksCount);
         this.tasks = new ArrayList<>();
@@ -54,6 +55,4 @@ public class PrimeProcessor implements IPrimeListener {
         results.forEach(System.out::println);
         System.out.println("goodbye");
     }
-
-
 }

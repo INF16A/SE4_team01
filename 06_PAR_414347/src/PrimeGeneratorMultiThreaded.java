@@ -5,10 +5,10 @@ import java.util.TreeSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class PrimeGeneratorMultiThreaded implements IPrimeStrategy {
+public class PrimeGeneratorMultiThreaded implements IPrimeGenerator {
 
     private static final int tasksCount = Runtime.getRuntime().availableProcessors();
-    private static final int startExponent = 6;
+    private static final int startExponent = 5;
     private int taskStopCounter = tasksCount;
     private List<IPrimeListener> primeListeners;
     private TreeSet<BlockResult> primeBuffer;
@@ -43,7 +43,7 @@ public class PrimeGeneratorMultiThreaded implements IPrimeStrategy {
 
         BlockResult blockToCompare = primeBuffer.first();
 
-        for (; blockToCompare.getBlockStart().equals(nextBlockStart) && !primeBuffer.isEmpty(); ) {
+        while (blockToCompare.getBlockStart().equals(nextBlockStart) && !primeBuffer.isEmpty()) {
             blockToCompare.getPrimes().forEach(this::publishPrime);
 
             primeBuffer.remove(blockToCompare);
