@@ -3,7 +3,7 @@ package taskgroup01.task38.vehicleType;
 import taskgroup01.task38.Vehicle;
 
 public class V4 extends Vehicle {
-    private int type = 4;
+    private final static int type = 4;
 
     public V4(String name) {
         super(name);
