@@ -24,17 +24,6 @@ public class Application {
         rentVehicle("4");
     }
 
-    private void rentVehicle(String type) {
-        int t = Integer.parseInt(type);
-        ICommand rent = new CommandRent(customer, t, repo);
-        rent.execute();
-    }
-
-    private void returnVehicle(String plate) {
-        ICommand ret = new CommandReturn(customer, plate, repo);
-        ret.execute();
-    }
-
     public static void main(String... args) {
         Application app = new Application();
         System.out.println("Commands: RENT <type (number)>, RETURN <id>, EXIT");
@@ -58,9 +47,17 @@ public class Application {
             } else if (input.startsWith("return ")) {
                 app.returnVehicle(parameter);
             }
-
         }
+    }
 
+    private void rentVehicle(String type) {
+        int t = Integer.parseInt(type);
+        ICommand rent = new CommandRent(customer, t, repo);
+        rent.execute();
+    }
 
+    private void returnVehicle(String plate) {
+        ICommand ret = new CommandReturn(customer, plate, repo);
+        ret.execute();
     }
 }

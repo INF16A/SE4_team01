@@ -1,4 +1,3 @@
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,6 +10,11 @@ import java.io.PrintStream;
 
 public class RepositoryTest {
 
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private Repository repository;
+    private Customer customer;
+    private Customer unauthorizedCustomer;
+
     @Before
     public void setUp() throws Exception {
         this.repository = new Repository();
@@ -18,11 +22,6 @@ public class RepositoryTest {
         this.unauthorizedCustomer = new Customer("Franz");
         System.setOut(new PrintStream(outContent));
     }
-
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private Repository repository;
-    private Customer customer;
-    private Customer unauthorizedCustomer;
 
     @After
     public void tearDown() throws Exception {
@@ -32,14 +31,14 @@ public class RepositoryTest {
     @Test
     public void rentVehicle1() {
         repository.rentVehicle(2, customer);
-        Assert.assertEquals("Rented car with plate BS-AF2001 to Hans"+System.lineSeparator(),outContent.toString());
+        Assert.assertEquals("Rented car with plate BS-AF2001 to Hans" + System.lineSeparator(), outContent.toString());
     }
 
     @Test
     public void returnVehicleNotAuthorized() {
         repository.rentVehicle(2, customer);
         repository.returnVehicle("BS-AF2001", unauthorizedCustomer);
-        Assert.assertTrue( outContent.toString().endsWith("ERROR: You are unauthorized to return the vehicle rented by Hans"+System.lineSeparator()));
+        Assert.assertTrue(outContent.toString().endsWith("ERROR: You are unauthorized to return the vehicle rented by Hans" + System.lineSeparator()));
     }
 
     @Test

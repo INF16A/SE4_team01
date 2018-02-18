@@ -14,7 +14,7 @@ public abstract class VehicleStorageIterator<VhclStrg extends VehicleStorage> im
 
     @Override
     public Vehicle next() {
-        return (Vehicle)vehicleStorage.getFreeVehicles().get(0);
+        return (Vehicle) vehicleStorage.getFreeVehicles().get(0);
 
     }
 

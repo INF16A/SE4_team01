@@ -3,7 +3,10 @@ package taskgroup01.task38;
 import taskgroup01.task38.command.CommandRent;
 import taskgroup01.task38.command.ICommand;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Reservation {
     private Map<Integer, List<IReservationListener>> reservations = new HashMap<>();
@@ -18,10 +21,10 @@ public class Reservation {
     }
 
     void sendNotification(int type) {
-        if(reservations.get(type).size() > 0) {
+        if (reservations.get(type).size() > 0) {
             IReservationListener listener = reservations.get(type).remove(0);
             listener.reservationNotification();
-            ICommand rent = new CommandRent((Customer)listener, type, repository);
+            ICommand rent = new CommandRent((Customer) listener, type, repository);
             rent.execute();
         }
     }

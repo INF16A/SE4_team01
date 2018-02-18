@@ -10,7 +10,7 @@ public class CustomerTest {
     }
 
     @Test
-    public  void testToString(){
+    public void testToString() {
         Customer customer = new Customer("test");
         Assert.assertEquals("test", customer.toString());
     }
