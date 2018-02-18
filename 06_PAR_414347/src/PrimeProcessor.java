@@ -8,16 +8,15 @@ import java.util.concurrent.Future;
 
 public class PrimeProcessor implements IPrimeListener {
 
-    public PrimeProcessor() {
-        this.executorService = Executors.newFixedThreadPool(tasksCount);
-        this.tasks = new ArrayList<>();
-    }
-
     private static final int tasksCount = Runtime.getRuntime().availableProcessors();
     private ExecutorService executorService;
     private BigInteger lastPrime1;
     private BigInteger lastPrime2;
     private List<Future<BigInteger>> tasks;
+    public PrimeProcessor() {
+        this.executorService = Executors.newFixedThreadPool(tasksCount);
+        this.tasks = new ArrayList<>();
+    }
 
     @Override
     public void primeGenerated(BigInteger nextPrime) {
@@ -25,7 +24,7 @@ public class PrimeProcessor implements IPrimeListener {
             String value = lastPrime2.toString() + lastPrime1.toString() + nextPrime.toString();
 
             tasks.add(executorService.submit(() -> {
-                if (check(value)) {
+                if (PrimeCheck.check(value)) {
                     return new BigInteger(value);
                 }
                 return null;
@@ -56,26 +55,5 @@ public class PrimeProcessor implements IPrimeListener {
         System.out.println("goodbye");
     }
 
-    private boolean check(String input) {
-        boolean isTrue = true;
-        int length = input.length();
-        for (int i = 1; isTrue && i < length; i++) {
-            if (length % i == 0) {
-                isTrue = check(input, i);
-            }
-        }
-        return isTrue;
-    }
 
-    public static boolean check(String input, int divLength) {
-        int length = input.length();
-        int partsCount = length / divLength;
-        long sum = 0;
-        int idx = 0;
-        for (int i = 0; i < partsCount; i++) {
-            sum += Long.parseLong(input.substring(idx, idx += divLength));
-        }
-        BigInteger val = BigInteger.valueOf(sum);
-        return val.subtract(BigInteger.ONE).nextProbablePrime().equals(val);
-    }
 }
