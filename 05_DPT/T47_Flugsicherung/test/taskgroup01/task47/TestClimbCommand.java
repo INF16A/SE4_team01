@@ -5,15 +5,6 @@ import org.junit.Test;
 
 public class TestClimbCommand {
 
-    private class TestClimber implements IEmergencyClimbable {
-        private int callsCount = 0;
-
-        @Override
-        public void emergencyClimb() {
-            callsCount++;
-        }
-    }
-
     @Test
     public void TestTestAirplaneInitialCounter() {
         TestClimber airplane = new TestClimber();
@@ -33,6 +24,15 @@ public class TestClimbCommand {
         ICommand command = new ClimbCommand(airplane);
         command.execute();
         Assert.assertEquals(1, airplane.callsCount);
+    }
+
+    private class TestClimber implements IEmergencyClimbable {
+        private int callsCount = 0;
+
+        @Override
+        public void emergencyClimb() {
+            callsCount++;
+        }
     }
 
 }

@@ -4,24 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class TestPositionListenerAirplane {
-    private class TestPositionListener implements IPositionListener {
-        private int callsCount = 0;
-
-        @Override
-        public void positionChanged(IPositionSpeaker p, int pos, int height) {
-            callsCount++;
-        }
-    }
-
-    private class TestFlightControlObject implements IFlightControl {
-        private int callsCount;
-
-        @Override
-        public void registerAirplane(IAirplane p) {
-            callsCount++;
-        }
-    }
-
     @Test
     public void TestFlightControlObjectInitialCounter() {
         TestFlightControlObject flightControlObject = new TestFlightControlObject();
@@ -75,5 +57,23 @@ public class TestPositionListenerAirplane {
         ap.cycle();
         Assert.assertEquals(1, listener.callsCount);
 
+    }
+
+    private class TestPositionListener implements IPositionListener {
+        private int callsCount = 0;
+
+        @Override
+        public void positionChanged(IPositionSpeaker p, int pos, int height) {
+            callsCount++;
+        }
+    }
+
+    private class TestFlightControlObject implements IFlightControl {
+        private int callsCount;
+
+        @Override
+        public void registerAirplane(IAirplane p) {
+            callsCount++;
+        }
     }
 }

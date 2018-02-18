@@ -6,7 +6,8 @@ import java.util.TimerTask;
 
 public class Application {
 
-    public static int timerInterval = 50;
+    static int timerInterval = 1000;
+    private static Random random = new Random();
 
     public static void main(String... args) {
         IFlightControl flightControl = new FlightControl();
@@ -36,8 +37,6 @@ public class Application {
         };
         timer.schedule(timerTask, timerInterval, timerInterval);
     }
-
-    private static Random random = new Random();
 
     public static float getRandomChance() {
         return random.nextFloat();

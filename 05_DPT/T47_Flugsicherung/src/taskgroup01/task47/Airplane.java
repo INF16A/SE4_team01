@@ -3,7 +3,7 @@ package taskgroup01.task47;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Airplane implements IAirplane,ITimeControlled {
+public class Airplane implements IAirplane, ITimeControlled {
     private static final float changeHeightChance = 0.2f;
     private static final int minHeight = 9500;
     private static final int maxHeight = 11250;
@@ -12,16 +12,14 @@ public class Airplane implements IAirplane,ITimeControlled {
     private int speed;
     private String name;
 
-    private IFlightControl flightControl;
     private List<IPositionListener> listeners = new ArrayList<>();
 
-    public Airplane(IFlightControl fc, String name, int speed, Airport startAirport) {
+    Airplane(IFlightControl fc, String name, int speed, Airport startAirport) {
         this.speed = speed;
         this.position = startAirport.getLocation();
         this.name = name;
         TimeControl.timeControl.addToTimeControl(this);
-        this.flightControl = fc;
-        this.flightControl.registerAirplane(this);
+        fc.registerAirplane(this);
     }
 
     public void addListener(IPositionListener positionListener) {
@@ -40,7 +38,7 @@ public class Airplane implements IAirplane,ITimeControlled {
         if (chance < changeHeightChance) {
             if (chance < changeHeightChance / 2) {
                 height += 250;
-            } else if (chance >= changeHeightChance / 2) {
+            } else {
                 height -= 250;
             }
         }
@@ -64,8 +62,8 @@ public class Airplane implements IAirplane,ITimeControlled {
     }
 
     private void notifyListeners() {
-        for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).positionChanged(this, position, height);
+        for (IPositionListener listener : listeners) {
+            listener.positionChanged(this, position, height);
         }
     }
 

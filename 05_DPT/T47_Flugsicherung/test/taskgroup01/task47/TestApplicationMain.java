@@ -13,13 +13,13 @@ public class TestApplicationMain {
 
     @Test
     public void TestMain() {
-        Application.main(null);
+        Application.main((String) null);
     }
 
     @Test
     public void TestMainConsistency() {
         for (int i = 0; i < 100; i++) {
-            Application.main(null);
+            Application.main((String) null);
         }
     }
 

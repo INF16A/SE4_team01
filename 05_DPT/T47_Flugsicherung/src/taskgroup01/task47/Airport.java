@@ -1,13 +1,13 @@
 package taskgroup01.task47;
 
-public class Airport {
+class Airport {
     private int location;
 
-    public int getLocation() {
-        return location;
+    Airport(int pos) {
+        location = pos;
     }
 
-    public Airport(int pos) {
-        location = pos;
+    int getLocation() {
+        return location;
     }
 }

@@ -3,28 +3,27 @@ package taskgroup01.task47;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimeControl {
-    public static TimeControl timeControl = new TimeControl();
-
-    public int getTicksCount() {
-        return ticksCount;
-    }
-
+class TimeControl {
+    static TimeControl timeControl = new TimeControl();
     private int ticksCount;
     private List<ITimeControlled> controllables = new ArrayList<>();
 
-    public void addToTimeControl(ITimeControlled iTimeControlled) {
+    int getTicksCount() {
+        return ticksCount;
+    }
+
+    void addToTimeControl(ITimeControlled iTimeControlled) {
         controllables.add(iTimeControlled);
     }
 
-    public void removeFromTimeControl(ITimeControlled iTimeControlled) {
+    void removeFromTimeControl(ITimeControlled iTimeControlled) {
         controllables.remove(iTimeControlled);
     }
 
-    public void Cycle() {
-        System.out.print(ticksCount+"\t");
-        for (int i = 0; i < controllables.size(); i++) {
-            controllables.get(i).cycle();
+    void Cycle() {
+        System.out.print(ticksCount + "\t");
+        for (ITimeControlled controllable : controllables) {
+            controllable.cycle();
         }
         System.out.println();
         ticksCount++;

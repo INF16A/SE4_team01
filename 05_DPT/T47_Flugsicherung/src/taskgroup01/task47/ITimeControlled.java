@@ -1,5 +1,5 @@
 package taskgroup01.task47;
 
 public interface ITimeControlled {
-      void cycle();
+    void cycle();
 }

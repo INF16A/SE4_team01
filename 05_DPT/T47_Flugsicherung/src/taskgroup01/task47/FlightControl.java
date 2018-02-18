@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 class LastPosition {
-    public final int pos;
-    public final int height;
+    final int pos;
+    final int height;
 
-    public LastPosition(int pos, int height) {
+    LastPosition(int pos, int height) {
         this.pos = pos;
         this.height = height;
     }
@@ -18,7 +18,7 @@ public class FlightControl implements IFlightControl, IPositionListener {
     private List<ClimbCommand> climbCommands = new ArrayList<>();
     private List<LastPosition> lastPositions = new ArrayList<>();
 
-    public FlightControl() {
+    FlightControl() {
         lastPositions.add(new LastPosition(0, 0));
         lastPositions.add(new LastPosition(0, 0));
     }
