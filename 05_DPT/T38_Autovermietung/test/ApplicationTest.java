@@ -29,9 +29,16 @@ public class ApplicationTest {
         return outLines[outLines.length - 1];
     }
 
+    private String[] runApplicationWithCommandFullOutput(String cmd) {
+        ByteArrayInputStream in = new ByteArrayInputStream(cmd.getBytes());
+        System.setIn(in);
+        Application.main();
+        return outContent.toString().split(System.lineSeparator());
+    }
+
     @Test
-    public  void testInvalidCommand(){
-        Assert.assertEquals("Please enter a valid command.", runApplicationWithCommand(""+exitCommand));
+    public void testInvalidCommand() {
+        Assert.assertEquals("Please enter a valid command.", runApplicationWithCommand("" + exitCommand));
     }
 
     @Test
@@ -58,25 +65,24 @@ public class ApplicationTest {
 
     @Test
     public void reservationMessageVehicleType1() {
-        String output = runApplicationWithCommand(
+        String[] output = runApplicationWithCommandFullOutput(
                 "rent 1" + System.lineSeparator() +
                         "rent 1" + System.lineSeparator() +
                         "rent 1" + System.lineSeparator() +
                         "return BS-AF1001" +
                         exitCommand);
-        Assert.assertEquals("Customer CLI User, your reserved car is now available.", output);
+        Assert.assertTrue(String.join("", output).contains("Customer CLI User, your reserved car is now available."));
     }
 
     @Test
     public void rentReservedVehicleType1() {
-        String output = runApplicationWithCommand(
+        String[] output = runApplicationWithCommandFullOutput(
                 "rent 1" + System.lineSeparator() +
                         "rent 1" + System.lineSeparator() +
                         "rent 1" + System.lineSeparator() +
-                        "return BS-AF1001" + System.lineSeparator() +
-                        "rent 1" +
+                        "return BS-AF1001" +
                         exitCommand);
-        Assert.assertEquals("Rented car with plate BS-AF1001 to CLI User", output);
+        Assert.assertTrue(String.join("", output).contains("Rented car with plate BS-AF1001 to CLI User"));
     }
 
     @Test

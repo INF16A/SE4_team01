@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,10 +11,8 @@ public class Application {
         System.out.println("starting prime generator");
         prime.start();
         Timer tr = new Timer();
-        Scanner sc = new Scanner(System.in);
         tr.schedule(
                 new TimerTask() {
-
                     @Override
                     public void run() {
                         try {

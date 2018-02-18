@@ -7,22 +7,21 @@ import java.util.concurrent.Executors;
 
 public class PrimeGeneratorMultiThreaded implements IPrimeStrategy {
 
+    private static final int tasksCount = Runtime.getRuntime().availableProcessors();
+    private static final int startExponent = 6;
+    private int taskStopCounter = tasksCount;
+    private List<IPrimeListener> primeListeners;
+    private TreeSet<BlockResult> primeBuffer;
+    private BigInteger nextBlockStart;
+    private ExecutorService executorService;
+    private Boolean running = false;
+    private int ctr = 0;
+
     public PrimeGeneratorMultiThreaded() {
         this.primeListeners = new ArrayList<>();
         this.primeBuffer = new TreeSet<>();
         this.executorService = Executors.newFixedThreadPool(tasksCount);
     }
-
-    private static final int tasksCount = Runtime.getRuntime().availableProcessors();
-    private static final int startExponent = 6;
-    private int taskStopCounter = tasksCount;
-
-    private List<IPrimeListener> primeListeners;
-    private TreeSet<BlockResult> primeBuffer;
-    private BigInteger nextBlockStart;
-
-    private ExecutorService executorService;
-    private Boolean running = false;
 
     @Override
     public void start() {
@@ -85,8 +84,6 @@ public class PrimeGeneratorMultiThreaded implements IPrimeStrategy {
         }
 
     }
-
-    private int ctr = 0;
 
     private synchronized void receiveStops() {
         System.out.println("stop received." + ctr++);
