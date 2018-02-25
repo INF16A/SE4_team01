@@ -16,7 +16,7 @@ public class BlockAdapter extends Block implements IEnergyGenerationStrategy {
     public String getNormalizedEnergy() {
         int counter0 = 0, counter1 = 1;
         String energy = generateEnergy();
-        char[] normalizedEnergy = new char[1000];
+        char[] normalizedEnergy = new char[2000]; //buffer has to be bigger
         for (int i = 0; i < energy.length(); i++) {
             char c = energy.charAt(i);
             if (c == '0') {
@@ -27,13 +27,13 @@ public class BlockAdapter extends Block implements IEnergyGenerationStrategy {
                 counter1 += 2;
             }
         }
-        // now there are a bunch of ones at the end of the normalized energy
+        // now there are a bunch of zeroes at the end of the normalized energy
         // we need to find the first place where there is no zero in the array
-        int endIndex = 500;
+        int endIndex = 1000;
         for (int i = 0; i < normalizedEnergy.length; i++) {
             char c = normalizedEnergy[i];
             if (c != '0' && c != '1') {
-                endIndex = i;
+                endIndex = i - 1; // the unnecessary zero at the end has to be excluded
                 break;
             }
         }

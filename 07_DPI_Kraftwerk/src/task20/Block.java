@@ -17,10 +17,10 @@ public class Block {
             return "";
 
         Random r = new Random();
-        char[] energy = new char[500];
+        char[] energy = new char[1000];
         List<Integer> positions = new ArrayList<>();
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < energy.length; i++) {
             energy[i] = '0';
             //have to implement it this way to stay deterministic
             positions.add(i);

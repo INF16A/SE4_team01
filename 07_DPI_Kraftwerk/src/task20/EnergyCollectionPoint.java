@@ -9,6 +9,13 @@ public class EnergyCollectionPoint {
 
     EnergyCollectionPoint() {
         connectedHouseHolds.add(new HouseholdAdapter(this));
+        connectedHouseHolds.add(new HouseholdAdapter(this));
+        connectedHouseHolds.add(new HouseholdAdapter(this));
+
+        System.out.print(connectedHouseHolds.size());
+        System.out.print(" households connected to the collection point, drawing ");
+        System.out.print(connectedHouseHolds.size() * 220);
+        System.out.println(" units of energy per second");
     }
 
     void tick() {
