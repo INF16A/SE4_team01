@@ -34,6 +34,7 @@ public class Block {
         return new String(energy);
     }
 
+    // no, IntelliJ, access can't be package-private. It's needed in CommandActivate
     public void activate() {
         activated = true;
     }

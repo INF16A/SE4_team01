@@ -1,13 +1,10 @@
 package task20;
 
-public class ControlRoom {
-    private PowerPlant powerPlant;
-
-    public ControlRoom(PowerPlant pp) {
-        powerPlant = pp;
-
-        powerPlant.activateBlock(0);
-        powerPlant.activateBlock(1);
-        powerPlant.activateBlock(3);
+//Leitwarte
+class ControlRoom {
+    ControlRoom(PowerPlant pp) {
+        pp.activateBlock(0);
+        pp.activateBlock(1);
+        pp.activateBlock(3);
     }
 }

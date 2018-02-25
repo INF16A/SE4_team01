@@ -3,14 +3,15 @@ package task20;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnergyCollectionPoint {
+//Zentrale Sammelstation
+class EnergyCollectionPoint {
     private List<IHouseHold> connectedHouseHolds = new ArrayList<>();
     private String energyStorage = "";
 
     EnergyCollectionPoint() {
-        connectedHouseHolds.add(new HouseholdAdapter(this));
-        connectedHouseHolds.add(new HouseholdAdapter(this));
-        connectedHouseHolds.add(new HouseholdAdapter(this));
+        for (int i = 0; i < 3; i++) {
+            connectedHouseHolds.add(new HouseholdAdapter(this));
+        }
 
         System.out.print(connectedHouseHolds.size());
         System.out.print(" households connected to the collection point, drawing ");
@@ -19,7 +20,7 @@ public class EnergyCollectionPoint {
     }
 
     void tick() {
-        for(IHouseHold hh : connectedHouseHolds) {
+        for (IHouseHold hh : connectedHouseHolds) {
             hh.useEnergy();
         }
         System.out.print("Current energy stored: ");
@@ -31,6 +32,9 @@ public class EnergyCollectionPoint {
     }
 
     String provideEnergy(int length) {
+        if (energyStorage.length() < length) {
+            throw new Error("not enough energy generation to support all households");
+        }
         String energyPacket = energyStorage.substring(0, length * 2); //*2 because numbers of ones count
         energyStorage = energyStorage.substring(length * 2); //remove energy packet from storage
         return energyPacket;

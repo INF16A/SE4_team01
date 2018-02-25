@@ -5,7 +5,7 @@ public class Application {
         EnergyCollectionPoint energyCollectionPoint = new EnergyCollectionPoint();
         PowerPlant powerPlant = new PowerPlant(energyCollectionPoint);
         ControlRoom controlRoom = new ControlRoom(powerPlant);
-        while(true) {
+        while (true) {
             powerPlant.tick();
             energyCollectionPoint.tick();
             Thread.sleep(1000);

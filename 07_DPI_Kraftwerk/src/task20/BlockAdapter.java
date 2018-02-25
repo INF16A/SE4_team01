@@ -3,7 +3,7 @@ package task20;
 public class BlockAdapter extends Block implements IEnergyGenerationStrategy {
     private EnergyCollectionPoint energyCollectionPoint;
 
-    public BlockAdapter(String type, EnergyCollectionPoint ecp) {
+    BlockAdapter(String type, EnergyCollectionPoint ecp) {
         super(type);
         this.energyCollectionPoint = ecp;
     }
@@ -13,7 +13,7 @@ public class BlockAdapter extends Block implements IEnergyGenerationStrategy {
         energyCollectionPoint.acceptEnergy(getNormalizedEnergy());
     }
 
-    public String getNormalizedEnergy() {
+    String getNormalizedEnergy() {
         int counter0 = 0, counter1 = 1;
         String energy = generateEnergy();
         char[] normalizedEnergy = new char[2000]; //buffer has to be bigger
