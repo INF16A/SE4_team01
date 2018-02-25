@@ -1,11 +1,11 @@
 package task20.commands;
 
-import task20.IEnergyGeneration;
+import task20.IEnergyGenerationStrategy;
 
 public class CommandActivate implements ICommand {
-    private IEnergyGeneration block;
+    private IEnergyGenerationStrategy block;
 
-    public CommandActivate(IEnergyGeneration b) {
+    public CommandActivate(IEnergyGenerationStrategy b) {
         this.block = b;
     }
 

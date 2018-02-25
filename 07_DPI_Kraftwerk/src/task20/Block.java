@@ -12,7 +12,10 @@ public class Block {
         this.type = type;
     }
 
-    public String generateEnergy() {
+    String generateEnergy() {
+        if (!activated)
+            return "";
+
         Random r = new Random();
         char[] energy = new char[500];
         List<Integer> positions = new ArrayList<>();
@@ -37,5 +40,9 @@ public class Block {
 
     public void deactivate() {
         activated = false;
+    }
+
+    public boolean isActivated() {
+        return activated;
     }
 }

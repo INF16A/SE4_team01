@@ -1,13 +1,19 @@
 package task20;
 
-public class BlockAdapter extends Block implements IEnergyGeneration {
+public class BlockAdapter extends Block implements IEnergyGenerationStrategy {
+    private EnergyCollectionPoint energyCollectionPoint;
 
-    public BlockAdapter(String type) {
+    public BlockAdapter(String type, EnergyCollectionPoint ecp) {
         super(type);
+        this.energyCollectionPoint = ecp;
     }
 
     @Override
-    public String generateNormalizedEnergy() {
+    public void generateNormalizedEnergy() {
+        energyCollectionPoint.acceptEnergy(getNormalizedEnergy());
+    }
+
+    public String getNormalizedEnergy() {
         int counter0 = 0, counter1 = 1;
         String energy = generateEnergy();
         char[] normalizedEnergy = new char[1000];
