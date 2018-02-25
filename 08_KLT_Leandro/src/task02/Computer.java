@@ -8,13 +8,14 @@ class Computer {
     private List<IDeviceListener> deviceListeners = new ArrayList<>();
 
     void connectUSBDevice(IUSB2 device) {
+        device.plugIn();
         connectedDevices.add(device);
         for (IDeviceListener listener : deviceListeners) {
             listener.newDeviceConnected(device);
         }
     }
 
-    public void addListener(IDeviceListener listener) {
+    void addListener(IDeviceListener listener) {
         deviceListeners.add(listener);
     }
 

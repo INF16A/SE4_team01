@@ -7,6 +7,5 @@ public class Application {
         computer.addListener(systemProcess);
         IUSB2 dvdBurner = new DVDBurnerAdapter();
         computer.connectUSBDevice(dvdBurner);
-
     }
 }
