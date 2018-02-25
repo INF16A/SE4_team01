@@ -3,11 +3,11 @@ package task01;
 public class Scientist implements IDataListener {
     private boolean stationAccessAllowed = false;
 
-    public Scientist(boolean allowed) {
+    Scientist(boolean allowed) {
         stationAccessAllowed = allowed;
     }
 
-    public boolean isStationAccessAllowed() {
+    boolean isStationAccessAllowed() {
         return stationAccessAllowed;
     }
 
