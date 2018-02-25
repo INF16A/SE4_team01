@@ -14,17 +14,6 @@ public class ProxyAccess implements IStationAccess {
     }
 
     @Override
-    public String getData() {
-        if(scientist.isStationAccessAllowed()) {
-            return weatherStation.getData();
-        }
-        else {
-            System.out.println("This person is not allowed to access the data");
-            return null;
-        }
-    }
-
-    @Override
     public void addListener(IDataListener listener) {
         if(scientist.isStationAccessAllowed()) {
             weatherStation.addListener(listener);

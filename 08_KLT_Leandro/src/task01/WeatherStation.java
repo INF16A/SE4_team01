@@ -21,12 +21,6 @@ public class WeatherStation implements IStationAccess {
     }
 
     @Override
-    public String getData() {
-        double temp = (random.nextDouble() * 60) - 20; //generate random temperature between -20 and +40°C
-        return "Current temperature: " + Double.toString(temp) + "°C";
-    }
-
-    @Override
     public void addListener(IDataListener listener) {
         listeners.add(listener);
     }
