@@ -35,6 +35,10 @@ class PowerPlant {
         blockDeactivates.get(blockId).execute();
     }
 
+    boolean blockIsActivated(int blockId) {
+        return blocks.get(blockId).isActivated();
+    }
+
     void tick() {
         for (IEnergyGenerationStrategy block : blocks) {
             if (block.isActivated()) {
