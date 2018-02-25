@@ -10,6 +10,47 @@ import java.util.Map;
 import java.util.Set;
 
 public class ShoppingCart implements Iterable<Product> {
+    private Map<Product, Integer> positions;
+    private IShoppingCartStatus status;
+
+    public ShoppingCart() {
+        this.status = new OpenShoppingCartStatus();
+        this.positions = new HashMap<>();
+    }
+
+    @Override
+    public Iterator<Product> iterator() {
+        return new ShoppingCartIterator(this);
+    }
+
+    public void AddProduct(Product p) {
+        if (status.isClosed()) {
+            System.out.println("Can't add a product to a closed cart");
+            return;
+        }
+        if (positions.containsKey(p)) {
+            positions.put(p, positions.get(p) + 1);
+        } else {
+            positions.put(p, 1);
+        }
+    }
+
+    public boolean isClosed() {
+        return this.status.isClosed();
+    }
+
+    public boolean isPaid() {
+        return this.status.isPaid();
+    }
+
+    public void pay() {
+        this.status = this.status.pay(this);
+    }
+
+    public void close() {
+        this.status = this.status.close(this);
+    }
+
     public class ShoppingCartIterator implements Iterator<Product> {
         private ShoppingCart cart;
         private Iterator<Map.Entry<Product, Integer>> iterator;
@@ -30,60 +71,23 @@ public class ShoppingCart implements Iterable<Product> {
 
         @Override
         public boolean hasNext() {
-            // return true;
-            /* Real implementation:/*/
             return index > 1 || iterator.hasNext();//*/
         }
 
         @Override
         public Product next() {
-            if (!iterator.hasNext()) {
-                resetIterator();
-            }
             if (index > 1) {
                 index--;
                 return currentProduct;
+            }
+            if (!iterator.hasNext()) {
+                throw new RuntimeException("NextElement does not exist");
             }
             Map.Entry<Product, Integer> entry = iterator.next();
             index = entry.getValue();
             currentProduct = entry.getKey();
             return currentProduct;
         }
-    }
-
-    public ShoppingCart() {
-        this.status = new OpenShoppingCartStatus();
-        this.positions = new HashMap<>();
-    }
-
-    @Override
-    public Iterator<Product> iterator() {
-        return new ShoppingCartIterator(this);
-    }
-
-    private Map<Product, Integer> positions;
-
-    public void AddProduct(Product p) {
-        if (status.isClosed()) {
-            throw new RuntimeException("Can't add a product to a closed cart");
-        }
-        if (positions.containsKey(p)) {
-            positions.put(p, positions.get(p) + 1);
-        } else {
-            positions.put(p, 1);
-        }
-    }
-
-    private IShoppingCartStatus status;
-
-    public void pay() {
-        this.status = this.status.pay(this);
-        System.out.println("new status is:" + this.status.getClass().getSimpleName());
-    }
-
-    public void close() {
-        this.status = this.status.close(this);
-        System.out.println("new status is:" + this.status.getClass().getSimpleName());
     }
 
 

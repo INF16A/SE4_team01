@@ -6,7 +6,7 @@ import Task_I06.Product.NonFoodProduct;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class VisitorTest {
+public class VisitorCalculationTest {
     @Test
     public void testFoodBusinessVisitorCalculation() {
         IShoppingCartVisitor visitor = new BusinessVisitor();

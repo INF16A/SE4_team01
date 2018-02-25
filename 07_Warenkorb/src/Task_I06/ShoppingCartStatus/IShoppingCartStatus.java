@@ -6,6 +6,7 @@ import Task_I06.ShoppingCart;
 public interface IShoppingCartStatus {
 
     boolean isClosed();
+
     boolean isPaid();
 
     IShoppingCartStatus close(ShoppingCart cart);

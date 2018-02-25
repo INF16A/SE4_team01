@@ -16,7 +16,6 @@ public class OpenShoppingCartStatus implements IShoppingCartStatus {
     @Override
     public IShoppingCartStatus close(ShoppingCart cart) {
         return new ClosedShoppingCartStatus();
-
     }
 
     @Override

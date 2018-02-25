@@ -29,19 +29,28 @@ public class IteratorTest {
     public void multipleDifferentItemsTest() {
         ShoppingCart shoppingCart = new ShoppingCart();
         Product product1 = new Egg();
-        shoppingCart.AddProduct(product1);
+        for (int i = 0; i < 3; i++) {
+            shoppingCart.AddProduct(product1);
+        }
+
         Product product2 = new RealApple();
-        shoppingCart.AddProduct(product2);
+        for (int i = 0; i < 3; i++) {
+            shoppingCart.AddProduct(product2);
+        }
 
         Iterator<Product> iterator = shoppingCart.iterator();
 
-        Assert.assertTrue(iterator.hasNext());
-        Product product3 = iterator.next();
-        Assert.assertTrue(product3 == product1 || product3 == product2);
-        Assert.assertTrue(iterator.hasNext());
-        Product product4 = iterator.next();
-        Assert.assertNotEquals(product3, product4);
-        Assert.assertTrue(product4 == product1 || product4 == product2);
+        int product1Count = 0;
+        int product2Count = 0;
+        while (iterator.hasNext()) {
+            if (iterator.next() == product1) {
+                product1Count++;
+            } else {
+                product2Count++;
+            }
+        }
+        Assert.assertEquals(3, product1Count);
+        Assert.assertEquals(3, product2Count);
     }
 
     @Test
@@ -59,4 +68,18 @@ public class IteratorTest {
         // normal iterator would behave like that.
         // Assert.assertFalse(iterator.hasNext());
     }
+
+    @Test
+    public void nextMoveFailTest() {
+        Iterator iterator = new ShoppingCart().iterator();
+        try{
+            iterator.next();
+            Assert.fail();
+        }
+        catch (Exception e){
+            //works
+        }
+
+    }
+
 }
