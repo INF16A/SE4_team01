@@ -4,7 +4,7 @@ import Task_I06.Product.NonFoodProduct;
 
 public class Tablet extends NonFoodProduct {
     @Override
-    public int getPrice() {
+    public double getPrice() {
         return 299;
     }
 }

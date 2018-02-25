@@ -4,7 +4,7 @@ import Task_I06.Product.NonFoodProduct;
 
 public class FlowerPot extends NonFoodProduct {
     @Override
-    public int getPrice() {
-        return 33;
+    public double getPrice() {
+        return 17.99;
     }
 }

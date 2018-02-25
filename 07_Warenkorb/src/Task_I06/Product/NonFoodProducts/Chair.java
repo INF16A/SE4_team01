@@ -4,7 +4,7 @@ import Task_I06.Product.NonFoodProduct;
 
 public class Chair extends NonFoodProduct {
     @Override
-    public int getPrice() {
-        return 79;
+    public double getPrice() {
+        return 79.99;
     }
 }

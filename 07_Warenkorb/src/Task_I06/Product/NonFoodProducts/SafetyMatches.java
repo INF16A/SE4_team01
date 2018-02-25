@@ -4,7 +4,7 @@ import Task_I06.Product.NonFoodProduct;
 
 public class SafetyMatches extends NonFoodProduct {
     @Override
-    public int getPrice() {
-        return 11;
+    public double getPrice() {
+        return 11.99;
     }
 }

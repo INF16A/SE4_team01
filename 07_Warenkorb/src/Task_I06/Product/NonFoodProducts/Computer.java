@@ -4,7 +4,7 @@ import Task_I06.Product.NonFoodProduct;
 
 public class Computer extends NonFoodProduct {
     @Override
-    public int getPrice() {
-        return 599;
+    public double getPrice() {
+        return 1599.99;
     }
 }

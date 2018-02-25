@@ -4,7 +4,7 @@ import Task_I06.Product.NonFoodProduct;
 
 public class PictureFrame extends NonFoodProduct {
     @Override
-    public int getPrice() {
+    public double getPrice() {
         return 19;
     }
 }

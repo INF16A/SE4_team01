@@ -4,7 +4,7 @@ import Task_I06.Product.NonFoodProduct;
 
 public class Pillow extends NonFoodProduct {
     @Override
-    public int getPrice() {
-        return 17;
+    public double getPrice() {
+        return 17.95;
     }
 }

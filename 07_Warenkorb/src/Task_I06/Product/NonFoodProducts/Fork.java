@@ -4,7 +4,7 @@ import Task_I06.Product.NonFoodProduct;
 
 public class Fork extends NonFoodProduct {
     @Override
-    public int getPrice() {
-        return 3;
+    public double getPrice() {
+        return 6.99;
     }
 }

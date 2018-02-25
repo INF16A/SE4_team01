@@ -4,7 +4,7 @@ import Task_I06.Product.NonFoodProduct;
 
 public class Lighter extends NonFoodProduct {
     @Override
-    public int getPrice() {
-        return 44;
+    public double getPrice() {
+        return 44.99;
     }
 }

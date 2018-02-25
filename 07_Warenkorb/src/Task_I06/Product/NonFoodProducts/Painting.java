@@ -4,7 +4,7 @@ import Task_I06.Product.NonFoodProduct;
 
 public class Painting extends NonFoodProduct {
     @Override
-    public int getPrice() {
-        return 1299;
+    public double getPrice() {
+        return 1299.99;
     }
 }

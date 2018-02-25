@@ -4,7 +4,7 @@ import Task_I06.Product.FoodProduct;
 
 public class Pear extends FoodProduct {
     @Override
-    public int getPrice() {
-        return 8;
+    public double getPrice() {
+        return 0.39;
     }
 }
