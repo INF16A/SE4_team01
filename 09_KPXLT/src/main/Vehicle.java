@@ -6,15 +6,22 @@ public class Vehicle {
     private int speed;
     private int position;
 
-    public void setSpeed(int speed) {
+    Vehicle(int position, int speed) {
+        this.position = position;
         this.speed = speed;
+    }
+
+    public void setSpeed(int speed) {
+        if(speed >= 0 && speed <= maxSpeed) {
+            this.speed = speed;
+        }
     }
 
     public int getSpeed() {
         return speed;
     }
 
-    public void slowDown() {
+    public void decelerate() {
         if(speed > 0) {
             speed--;
         }
