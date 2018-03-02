@@ -6,6 +6,11 @@ import java.util.Random;
 
 public class Simulation {
     private final int wrapAround = 1000;
+
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
     private List<Vehicle> vehicles = new ArrayList<>();
     private Random random;
     private float lingerProbability;
@@ -19,16 +24,16 @@ public class Simulation {
         int variation = (int) distance / 2;
         for (int i = 0; i < numberOfCars; i++) {
             int delta = random.nextInt(variation * 2) - variation;
-            vehicles.add(new Vehicle((int)curPos + delta, 0));
+            vehicles.add(new Vehicle((int) curPos + delta, 0));
             curPos += distance;
         }
     }
 
-    private void step1Accelerate(Vehicle v) {
+    public void step1Accelerate(Vehicle v) {
         v.accelerate();
     }
 
-    private void step2CheckGap(Vehicle v1, Vehicle v2) {
+    public void step2CheckGap(Vehicle v1, Vehicle v2) {
         int gap = v2.getPosition() - v1.getPosition();
         if (gap < 0) { //correct for wrap-around calculation
             gap += 1000;
@@ -38,7 +43,7 @@ public class Simulation {
         }
     }
 
-    private void step3Linger(Vehicle v) {
+    public void step3Linger(Vehicle v) {
         if (lingerProbability > 0) {
             if (random.nextFloat() < lingerProbability) {
                 v.decelerate();
@@ -46,7 +51,7 @@ public class Simulation {
         }
     }
 
-    private void step4Drive(Vehicle v) {
+    public void step4Drive(Vehicle v) {
         v.moveForwards();
     }
 }

@@ -11,8 +11,18 @@ import javafx.stage.Stage;
 
 public class Application extends javafx.application.Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws  Exception{
+        Simulation sim = new Simulation(100, 0);
+        SimulationExecutor executor = new SimulationExecutorMultiThreaded(sim);
+        executor.AddListener(new ISimulationObserver() {
+            @Override
+            public void stepFinished() {
+                System.out.println("next step!");
+            }
+        });
+        executor.start();
         launch(args);
+        executor.stop();
     }
 
     @Override
