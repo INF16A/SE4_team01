@@ -28,8 +28,9 @@ public class SimulationExecutorMultiThreaded extends SimulationExecutor {
 
     private void loop() {
         List<Vehicle> vehicles = simulation.getVehicles();
+        final int vehiclesCount = vehicles.size();
         vehicles.stream().parallel().forEach(simulation::step1Accelerate);
-        IntStream.range(0, vehicles.size() - 1).forEach(idx -> simulation.step2CheckGap(vehicles.get(idx), vehicles.get(idx + 1)));
+        IntStream.range(0, vehicles.size()).forEach(idx -> simulation.step2CheckGap(vehicles.get(idx), vehicles.get((idx + 1) % vehiclesCount)));
         vehicles.stream().parallel().forEach(simulation::step3Linger);
         vehicles.stream().parallel().forEach(simulation::step4Drive);
         fireEvent();
