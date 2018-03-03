@@ -15,28 +15,19 @@ import java.util.concurrent.Executors;
 public class Application extends javafx.application.Application {
 
     public static void main(String[] args) throws Exception {
-     /*   Simulation simulation = new Simulation(100, 0.0f);
-        SimulationExecutor executor = new SimulationExecutorMultiThreaded(simulation);
-        executor.AddListener(new ISimulationObserver() {
-            @Override
-            public void stepFinished() {
-                System.out.println(".");
-            }
-        });
-        executor.start();*/
         launch(args);
-        // executor.stop();
-
     }
 
     private Simulation simulation;
+    private ISimulationExecution simulationExecution;
     private SimulationExecutor executor;
     private ExecutorService drawExecutor;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.simulation = new Simulation(10, 0.1f);
-        this.executor = new SimulationExecutorSingleThreaded(simulation);
+        this.simulation = new Simulation(100, 0.9f);
+        this.simulationExecution=new SimulationParallelExecution(simulation);
+        this.executor = new SimulationExecutionTimed(simulationExecution, 1);
         this.drawExecutor = Executors.newSingleThreadExecutor();
 
         primaryStage.setTitle("NaSch-Modell");
@@ -44,8 +35,6 @@ public class Application extends javafx.application.Application {
         Canvas canvas = new Canvas(1000, 500);
         WritableImage wi = new WritableImage(1000, 500);
         PixelWriter pw = wi.getPixelWriter()/*canvas.getGraphicsContext2D().getPixelWriter()*/;
-
-
         this.executor.AddListener(new ISimulationObserver() {
             private final int lineCount = 500;
             private int currentLine = 0;

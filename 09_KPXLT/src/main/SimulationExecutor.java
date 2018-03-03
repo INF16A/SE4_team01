@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SimulationExecutor implements ISimulationExecutor {
-    public SimulationExecutor(Simulation simulation) {
-        this.simulation = simulation;
+    public SimulationExecutor(ISimulationExecution simulationExecution) {
+        this.simulationExecution = simulationExecution;
     }
 
-    public Simulation getSimulation() {
-        return simulation;
-    }
 
-    protected Simulation simulation;
+    protected ISimulationExecution simulationExecution;
 
 
     public void AddListener(ISimulationObserver observer) {
@@ -26,7 +23,8 @@ public abstract class SimulationExecutor implements ISimulationExecutor {
     protected void fireEvent() {
         try {
             observers.forEach(ISimulationObserver::stepFinished);
-        }catch (Exception e){
+        } catch (Exception e) {
+            // todo FIX this exception.
             e.printStackTrace();
         }
     }
