@@ -24,7 +24,11 @@ public abstract class SimulationExecutor implements ISimulationExecutor {
     }
 
     protected void fireEvent() {
-        observers.forEach(observer -> observer.stepFinished());
+        try {
+            observers.forEach(ISimulationObserver::stepFinished);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private List<ISimulationObserver> observers = new ArrayList<>();
