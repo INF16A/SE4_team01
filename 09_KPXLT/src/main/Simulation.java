@@ -23,7 +23,10 @@ public class Simulation {
         double curPos = 0, distance = wrapAround / (double) numberOfCars;
         int variation = (int) distance / 2;
         for (int i = 0; i < numberOfCars; i++) {
-            int delta = random.nextInt(variation * 2) - variation;
+            int delta = 0;
+            if (variation > 0) {
+                delta = random.nextInt(variation * 2) - variation;
+            }
             vehicles.add(new Vehicle((int) curPos + delta, 0));
             curPos += distance;
         }
@@ -34,7 +37,7 @@ public class Simulation {
     }
 
     public void step2CheckGap(Vehicle v1, Vehicle v2) {
-        int gap = v2.getPosition() - v1.getPosition();
+        int gap = v2.getPosition() - v1.getPosition() - 1;
         if (gap < 0) { //correct for wrap-around calculation
             gap += 1000;
         }

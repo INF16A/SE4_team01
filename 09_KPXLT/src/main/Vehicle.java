@@ -24,17 +24,23 @@ public class Vehicle {
     public void decelerate() {
         if (speed > 0) {
             speed--;
+        } else {
+            speed = 0; //clamping
         }
     }
 
     public void accelerate() {
         if (speed < maxSpeed) {
             speed++;
+        } else {
+            speed = maxSpeed; //clamping
         }
     }
 
     public void setPosition(int position) {
-        this.position = position;
+        if (position >= 0 && position <= wrapAround) {
+            this.position = position;
+        }
     }
 
     public int getPosition() {
