@@ -3,12 +3,12 @@ package main;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SimulationExecutionTimed extends SimulationExecutor {
+public class SimulationExecutorTimed extends SimulationExecutor {
     private Boolean running = false;
     private int interval;
     private Timer timer;
 
-    public SimulationExecutionTimed(ISimulationExecution simulationExecution, int interval) {
+    public SimulationExecutorTimed(ISimulationExecution simulationExecution, int interval) {
         super(simulationExecution);
         this.interval = interval;
         this.timer = new Timer();

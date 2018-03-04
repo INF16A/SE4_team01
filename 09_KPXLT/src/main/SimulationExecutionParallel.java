@@ -3,8 +3,8 @@ package main;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class SimulationParallelExecution implements ISimulationExecution {
-    public SimulationParallelExecution(Simulation simulation) {
+public class SimulationExecutionParallel implements ISimulationExecution {
+    public SimulationExecutionParallel(Simulation simulation) {
         this.simulation = simulation;
     }
 

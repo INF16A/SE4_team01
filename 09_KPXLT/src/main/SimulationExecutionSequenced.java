@@ -2,8 +2,8 @@ package main;
 
 import java.util.List;
 
-public class SimulationSequenceExecution implements ISimulationExecution {
-    public SimulationSequenceExecution(Simulation simulation) {
+public class SimulationExecutionSequenced implements ISimulationExecution {
+    public SimulationExecutionSequenced(Simulation simulation) {
         this.simulation = simulation;
     }
 

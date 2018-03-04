@@ -9,7 +9,7 @@ public class SimulationTest {
 
     @Before
     public void before() {
-        simulation = new Simulation(1, 0);
+        simulation = new Simulation(10, 0);
     }
 
     @Test
@@ -20,11 +20,19 @@ public class SimulationTest {
     }
 
     @Test
-    public void step2() {
+    public void step2Gap() {
         Vehicle v1 = new Vehicle(0, 5);
         Vehicle v2 = new Vehicle(2, 0);
         simulation.step2CheckGap(v1, v2);
         Assert.assertEquals(1, v1.getSpeed());
+    }
+
+    @Test
+    public void step2GapWithOverflow() {
+        Vehicle v1 = new Vehicle(999, 5);
+        Vehicle v2 = new Vehicle(0, 0);
+        simulation.step2CheckGap(v1, v2);
+        Assert.assertEquals(0, v1.getSpeed());
     }
 
     @Test
@@ -47,6 +55,11 @@ public class SimulationTest {
         Vehicle v = new Vehicle(0, 4);
         simulation.step4Drive(v);
         Assert.assertEquals(4, v.getPosition());
+    }
+
+    @Test
+    public void getVehicles() {
+        Assert.assertEquals(10, simulation.getVehicles().size());
     }
 
 }
