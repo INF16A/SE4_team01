@@ -25,10 +25,6 @@ public class SimulationExecutorSingleThreaded extends SimulationExecutor {
         });
     }
 
-    private int wrap(int idx, int max) {
-        return (idx % max);
-    }
-
     @Override
     public void stop() {
         System.out.println("attempting to shutdown");

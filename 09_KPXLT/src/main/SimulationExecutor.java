@@ -13,11 +13,11 @@ public abstract class SimulationExecutor implements ISimulationExecutor {
     protected ISimulationExecution simulationExecution;
 
 
-    public void AddListener(ISimulationObserver observer) {
+    public void addListener(ISimulationObserver observer) {
         observers.add(observer);
     }
 
-    public void RemoveListener(ISimulationObserver observer) {
+    public void removeListener(ISimulationObserver observer) {
         observers.remove(observer);
     }
 
