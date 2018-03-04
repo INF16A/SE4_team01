@@ -7,27 +7,30 @@ import javafx.scene.paint.Color;
 
 public class BufferedImageOutput implements ISimulationObserver {
 
-    public BufferedImageOutput(Simulation sim) {
-        this.image = new WritableImage(width, initialHeight);
+    public BufferedImageOutput(Simulation sim, int width, int height) {
+        this.height = height;
+        this.width = width;
+        this.image = new WritableImage(width, height);
         this.reader = image.getPixelReader();
         this.writer = image.getPixelWriter();
         this.simulation = sim;
     }
 
     private Simulation simulation;
-    private final int width = 1000;
-    private final int initialHeight = 1;
-    private int currentHeight = initialHeight;
-    private int heightCounter = 0;
+    private final int width;
+    private final int height;
 
     public WritableImage getImage() {
-        return finishedImage;
+        if (isFinished) {
+            return image;
+        }
+        return null;
     }
 
-    private WritableImage finishedImage;
     private WritableImage image;
     private PixelWriter writer;
     private PixelReader reader;
+    private Boolean isFinished = true;
     private Color noVehicleColor = new Color(0, 0, 0, 1);
 
     private Color getColorBySpeed(int speed) {
@@ -36,22 +39,8 @@ public class BufferedImageOutput implements ISimulationObserver {
 
     @Override
     public void stepFinished() {
-        heightCounter++;
-        if (currentHeight <= heightCounter) {
-            finishedImage = image;
-            currentHeight += initialHeight;
-
-            image = new WritableImage(width, currentHeight);
-            writer = image.getPixelWriter();
-            for (int x = 0; x < finishedImage.getWidth(); x++) {
-                for (int y = 0; y < finishedImage.getHeight(); y++) {
-                    writer.setColor(x, y, reader.getColor(x, y));
-                }
-            }
-            reader = image.getPixelReader();
-        }
-        //shift
-        for (int y = currentHeight - 2; y >= 0; y--) {
+        isFinished = false;
+        for (int y = height - 2; y >= 0; y--) {
             for (int x = 0; x < width; x++) {
                 writer.setColor(x, y + 1, reader.getColor(x, y));
             }
@@ -60,6 +49,7 @@ public class BufferedImageOutput implements ISimulationObserver {
             writer.setColor(x, 0, noVehicleColor);
         }
         simulation.getVehicles().forEach(vehicle -> writer.setColor(vehicle.getPosition(), 0, getColorBySpeed(vehicle.getSpeed())));
+        isFinished = true;
     }
 
 }
