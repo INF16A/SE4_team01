@@ -19,15 +19,14 @@ public class Application extends javafx.application.Application {
     }
 
     private Simulation simulation;
-    private ISimulationExecution simulationExecution;
     private SimulationExecutor executor;
     private ExecutorService drawExecutor;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.simulation = new Simulation(100, 0.9f);
-        this.simulationExecution=new SimulationParallelExecution(simulation);
-        this.executor = new SimulationExecutionTimed(simulationExecution, 1);
+        this.simulation = new Simulation(200, 0.5f);
+        ISimulationExecution simulationExecution = new SimulationParallelExecution(simulation);
+        this.executor = new SimulationExecutionTimed(simulationExecution, 10);
         this.drawExecutor = Executors.newSingleThreadExecutor();
 
         primaryStage.setTitle("NaSch-Modell");
@@ -38,9 +37,12 @@ public class Application extends javafx.application.Application {
         this.executor.AddListener(new ISimulationObserver() {
             private final int lineCount = 500;
             private int currentLine = 0;
-            private Color vehicleColor = new Color(1, 0, 0, 1);
             private Color noVehicleColor = new Color(0, 0, 0, 1);
             private Color nextLineColor = new Color(0, 1, 0, 1);
+
+            private Color getColorBySpeed(int speed) {
+                return new Color((5f - speed) / 5f, speed / 5f, 0, 1);
+            }
 
             @Override
             public void stepFinished() {
@@ -52,7 +54,7 @@ public class Application extends javafx.application.Application {
                     for (int i = 0; i < 1000; i++) {
                         pw.setColor(i, lineToDraw, noVehicleColor);
                     }
-                    simulation.getVehicles().stream().map(Vehicle::getPosition).forEach(position -> pw.setColor(position, lineToDraw, vehicleColor));
+                    simulation.getVehicles().forEach(vehicle -> pw.setColor(vehicle.getPosition(), lineToDraw, getColorBySpeed(vehicle.getSpeed())));
                     for (int i = 0; i < 1000; i++) {
                         pw.setColor(i, lineToClear, nextLineColor);
                     }
