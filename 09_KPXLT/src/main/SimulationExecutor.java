@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.RejectedExecutionException;
 
 public abstract class SimulationExecutor implements ISimulationExecutor {
     public SimulationExecutor(ISimulationExecution simulationExecution) {
@@ -23,9 +24,8 @@ public abstract class SimulationExecutor implements ISimulationExecutor {
     protected void fireEvent() {
         try {
             observers.forEach(ISimulationObserver::stepFinished);
-        } catch (Exception e) {
-            // todo FIX this exception.
-            e.printStackTrace();
+        } catch (RejectedExecutionException e) {
+            System.out.println("simulation execution ending.");
         }
     }
 
