@@ -24,7 +24,7 @@ public class Application extends javafx.application.Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.simulation = new Simulation(200, 0.5f);
+        this.simulation = new Simulation(10, 0.8f);
         ISimulationExecution simulationExecution = new SimulationParallelExecution(simulation);
         this.executor = new SimulationExecutionTimed(simulationExecution, 10);
         this.drawExecutor = Executors.newSingleThreadExecutor();

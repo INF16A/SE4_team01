@@ -44,6 +44,10 @@ public class Vehicle {
     }
 
     public int getPosition() {
+        if(position < 0) {
+            System.out.println("ohoh");
+            throw new Error("oops");
+        }
         return position;
     }
 
