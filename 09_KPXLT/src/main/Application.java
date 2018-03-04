@@ -1,16 +1,14 @@
 package main;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Application extends javafx.application.Application {
 
@@ -20,64 +18,44 @@ public class Application extends javafx.application.Application {
 
     private Simulation simulation;
     private SimulationExecutor executor;
-    private ExecutorService drawExecutor;
+    private BufferedImageOutput bufferedImageOutput;
+    private final int lineWidth = 1000;
+    private final int lineHeight = 5;
+
+    private Canvas canvas;
+    private ImageView view;
+    private WritableImage wi;
+    private Group root;
+    private ExecutorService service;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.simulation = new Simulation(10, 0.8f);
-        ISimulationExecution simulationExecution = new SimulationParallelExecution(simulation);
-        this.executor = new SimulationExecutionTimed(simulationExecution, 10);
-        this.drawExecutor = Executors.newSingleThreadExecutor();
+        this.simulation = new Simulation(100, 0.8f);
+        ISimulationExecution simulationExecution = new SimulationExecutionParallel(simulation);
+        this.executor = new SimulationExecutorMultiThreaded(simulationExecution);
+        this.bufferedImageOutput = new BufferedImageOutput(simulation);
 
-        primaryStage.setTitle("NaSch-Modell");
-
-        Canvas canvas = new Canvas(1000, 500);
-        WritableImage wi = new WritableImage(1000, 500);
-        PixelWriter pw = wi.getPixelWriter()/*canvas.getGraphicsContext2D().getPixelWriter()*/;
-        this.executor.AddListener(new ISimulationObserver() {
-            private final int lineCount = 500;
-            private int currentLine = 0;
-            private Color noVehicleColor = new Color(0, 0, 0, 1);
-            private Color nextLineColor = new Color(0, 1, 0, 1);
-
-            private Color getColorBySpeed(int speed) {
-                return new Color((5f - speed) / 5f, speed / 5f, 0, 1);
-            }
-
+        this.executor.addListener(bufferedImageOutput);
+        AnimationTimer timer = new AnimationTimer() {
             @Override
-            public void stepFinished() {
-                System.out.println(currentLine);
-                final int lineToDraw = currentLine;
-                final int lineToClear = getNextLine();
-                nextLine();
-                drawExecutor.submit(() -> {
-                    for (int i = 0; i < 1000; i++) {
-                        pw.setColor(i, lineToDraw, noVehicleColor);
-                    }
-                    simulation.getVehicles().forEach(vehicle -> pw.setColor(vehicle.getPosition(), lineToDraw, getColorBySpeed(vehicle.getSpeed())));
-                    for (int i = 0; i < 1000; i++) {
-                        pw.setColor(i, lineToClear, nextLineColor);
-                    }
-                });
+            public void handle(long now) {
+                view.setImage(bufferedImageOutput.getImage());
             }
+        };
+        timer.start();
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(500);
+        primaryStage.setTitle("NaSch-Modell");
+        wi = new WritableImage(lineWidth, lineHeight);
 
-            private int getNextLine() {
-                return (currentLine + 1) % lineCount;
-            }
-
-            private void nextLine() {
-                currentLine++;
-                if (currentLine == lineCount) {
-                    this.currentLine = 0;
-                }
-            }
-        });
-        ImageView imageView = new ImageView(wi);
-        Group root = new Group();
-        root.getChildren().add(canvas);
-        root.getChildren().add(imageView);
-        primaryStage.setScene(new Scene(root, 1000, 500));
+        view = new ImageView(wi);
+        view.setCache(true);
+        root = new Group();
+        root.getChildren().add(view);
+        primaryStage.setScene(new Scene(root));
         executor.start();
+        primaryStage.setResizable(true);
         primaryStage.show();
     }
 
@@ -85,7 +63,6 @@ public class Application extends javafx.application.Application {
     public void stop() {
         System.out.println("ending");
         executor.stop();
-        drawExecutor.shutdown();
         System.out.println("ended");
     }
 }
