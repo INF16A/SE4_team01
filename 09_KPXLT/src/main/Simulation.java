@@ -27,7 +27,12 @@ public class Simulation {
             if (variation > 0) {
                 delta = random.nextInt(variation * 2) - variation;
             }
-            vehicles.add(new Vehicle((int) curPos + delta, 0));
+            int position = (int) curPos + delta;
+            if (position < 0)
+                position = 0;
+            if (position >= wrapAround)
+                position = wrapAround - 1;
+            vehicles.add(new Vehicle(position, 0));
             curPos += distance;
         }
     }
