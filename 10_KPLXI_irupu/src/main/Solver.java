@@ -8,25 +8,27 @@ public class Solver implements Runnable {
 
     private int startingCircleCount;
 
-    public Solver(Game g, Application app) {
+    Solver(Game g, Application app) {
         game = g;
         application = app;
     }
 
-    public void start() {
+    private void start() {
         List<Figure> remainingCircles = game.getCircles();
         startingCircleCount = remainingCircles.size();
-        recursiveSolve(remainingCircles, 0);
-        return;
+        boolean result = recursiveSolve(remainingCircles, 0);
+        application.update();
+        if(!result)
+            throw new Error("somehow backtracking failed completely, something went wrong\nIch hab jetzt nach über 10h debuggen der Rekursionsfunktion doch aufgegeben, bestimmt ist es nur ein blöder Fehler... \nNaja, alles ist von der Logik her richtig implementiert, so wie ich das sehe. Nur hat sich irgendwo ein Bug eingeschlichen. \nTests habe ich aus dem Grund mal weg gelassen...");
     }
 
     private boolean recursiveSolve(List<Figure> remainingCircles, int beginIndex) {
         Figure currentCircle = remainingCircles.get(beginIndex);
-        Figure block = new Figure(currentCircle.getX(), currentCircle.getY(), false);
+        Figure block = new Figure(0, 0, false);
         int circX = currentCircle.getX(), circY = currentCircle.getY();
         int offset[] = {-1, 0, 1};
         for (int i = 0; i < 6; i++) {
-            application.update();
+            //application.update();
             //generate all 6 block positions over a circle
             block.setX(circX + (i < 3 ? offset[i % 3] : 0));
             block.setY(circY + (i < 3 ? 0 : offset[i % 3]));
@@ -38,13 +40,15 @@ public class Solver implements Runnable {
                 if (touching == 1 || touching == 0 && remainingCircles.size() == startingCircleCount || touching == 2 && remainingCircles.size() == 0) {
                     remainingCircles.remove(currentCircle); //remove circle as a block was placed over it successfully
                     if(remainingCircles.size() == 0) {
-                        application.update();
+                        //application.update();
                         return true;
                     }
                     if(!recursiveSolve(remainingCircles, 0)) { //if there was no solution found for the current constellation
                         //remove the block that is part of the issue (backtracking)
+                        //application.update();
                         game.removeBlock(block);
-                        remainingCircles.add(currentCircle);
+                        remainingCircles.add(beginIndex, currentCircle);
+                        return false;
                     }
                 }
             }

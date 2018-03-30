@@ -36,17 +36,6 @@ public class Game {
         addCircle(new Figure(0, 9));
         addCircle(new Figure(3, 9));
         addCircle(new Figure(8, 9));
-
-        //addBlock(new Figure(9, 3, true));
-/*
-        addBlock(new Figure(1, 1, false));
-        addBlock(new Figure(3, 1, true));
-        addBlock(new Figure(5, 2, false));
-        addBlock(new Figure(0, 3, true));
-        addBlock(new Figure(2, 3, true));
-
-        System.out.println(countTouchingBlocks(blocks.get(0)));
-        System.out.println(countTouchingBlocks(blocks.get(1)));*/
     }
 
     public void solve() {
