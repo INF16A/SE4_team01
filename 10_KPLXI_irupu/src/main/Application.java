@@ -12,17 +12,22 @@ import java.util.List;
 
 public class Application extends javafx.application.Application {
 
+    GraphicsContext graphicsContext;
+    Game game;
+
     public static void main(String[] args) {
         launch(args);
     }
 
+    int width, height;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Game game = new Game();
+        game = new Game(this);
 
         Group root = new Group();
-        int width = Configuration.instance.screenWidth * Configuration.instance.cellSize;
-        int height = Configuration.instance.screenHeight * Configuration.instance.cellSize;
+        width = Configuration.instance.screenWidth * Configuration.instance.cellSize;
+        height = Configuration.instance.screenHeight * Configuration.instance.cellSize;
 
         Scene s = new Scene(root, width, height);
         Canvas canvas = new Canvas(width, height);
@@ -33,9 +38,17 @@ public class Application extends javafx.application.Application {
         primaryStage.show();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        graphicsContext = gc;
         drawLines(gc);
-        drawBlocks(gc, game.getBlocks());
-        drawCircles(gc, game.getCircles());
+        game.solve();
+    }
+
+    public void update() {
+        graphicsContext.setFill(Color.WHITE);
+        graphicsContext.fillRect(0, 0, width, height);
+        drawLines(graphicsContext);
+        drawBlocks(graphicsContext, game.getBlocks());
+        drawCircles(graphicsContext, game.getCircles());
     }
 
     private void drawLines(GraphicsContext gc) {

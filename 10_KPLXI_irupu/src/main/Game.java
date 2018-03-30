@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
+    private Solver solver;
     private List<Figure> circles = new ArrayList<>();
     private List<Figure> blocks = new ArrayList<>();
     int[][] field = new int[Configuration.instance.screenHeight][Configuration.instance.screenWidth];
 
-    public Game() {
+    public Game(Application app) {
+        solver = new Solver(this, app);
         for (int i = 0; i < Configuration.instance.screenHeight; i++) {
             for (int j = 0; j < Configuration.instance.screenWidth; j++) {
                 field[i][j] = 0;
@@ -35,38 +37,63 @@ public class Game {
         addCircle(new Figure(3, 9));
         addCircle(new Figure(8, 9));
 
+        //addBlock(new Figure(9, 3, true));
+/*
         addBlock(new Figure(1, 1, false));
         addBlock(new Figure(3, 1, true));
+        addBlock(new Figure(5, 2, false));
+        addBlock(new Figure(0, 3, true));
+        addBlock(new Figure(2, 3, true));
 
+        System.out.println(countTouchingBlocks(blocks.get(0)));
+        System.out.println(countTouchingBlocks(blocks.get(1)));*/
+    }
+
+    public void solve() {
+        Thread thread = new Thread(solver);
+        thread.start();
     }
 
     public List<Figure> getCircles() {
-        return circles;
-    }
-
-    public List<Figure> getBlocks() {
-        return blocks;
-    }
-
-    public void addBlock(Figure block) {
-        if (!checkBlockPlaceable(block))
-            return;
-
-        field[block.getY()][block.getX()] += 10;
-        if (block.getOrientation()) { //vertical
-            field[block.getY()][block.getX() - 1] += 10;
-            field[block.getY()][block.getX() + 1] += 10;
-        } else {
-            field[block.getY() - 1][block.getX()] += 10;
-            field[block.getY() + 1][block.getX()] += 10;
-        }
-
-        blocks.add(block);
+        return new ArrayList<>(circles); //return copy of list, not a reference
     }
 
     public void addCircle(Figure circle) {
         field[circle.getY()][circle.getX()] += 1;
         circles.add(circle);
+    }
+
+    public List<Figure> getBlocks() {
+        return new ArrayList<>(blocks); //return copy of list, not a reference
+    }
+
+    public void removeBlock(Figure block) {
+        blocks.remove(block);
+    }
+
+    public boolean addBlock(Figure block) {
+        if (!checkBlockPlaceable(block))
+            return false;
+        addBlockNoCheck(block);
+        return true;
+    }
+
+    public void addBlockNoCheck(Figure block) {
+        int x = block.getX(), y = block.getY();
+        field[y][x] += 10;
+        if (!block.getOrientation()) { //horizontal  not vertical todo
+            if (x > 0)
+                field[y][x - 1] += 10;
+            if (x < Configuration.instance.screenWidth)
+                field[y][x + 1] += 10;
+        } else {
+            if (y > 0)
+                field[y - 1][x] += 10;
+            if (y < Configuration.instance.screenHeight)
+                field[y + 1][x] += 10;
+        }
+
+        blocks.add(block);
     }
 
     public boolean checkBlockPlaceable(Figure block) {
@@ -97,6 +124,33 @@ public class Game {
         }
 
         return true;
+    }
+
+    public int countTouchingBlocks(Figure block) {
+        List<Figure> compareBlocks = getBlocks();
+        int count = 0;
+        for (Figure cb : compareBlocks) {
+            int xDist = Math.abs(block.getX() - cb.getX());
+            int yDist = Math.abs(block.getY() - cb.getY());
+            if (cb.getOrientation() != block.getOrientation()) { //contradicting orientations, same pattern for horz/vert or vert/horz
+                if (xDist == 2 && yDist <= 1 || yDist == 2 && xDist <= 1) { //check for all possible locations that would be touching the current block
+                    count++;
+                }
+            } else { //same orientation
+                int a, b;
+                if (block.getOrientation()) { //if both are vertical
+                    a = xDist;
+                    b = yDist;
+                } else { //if both are vertical, flip the pattern for what coordinates to look for
+                    a = yDist;
+                    b = xDist;
+                }
+                if (a == 1 && b <= 2 || b == 3 && a == 0) { //check for all possible offsets that would be touching the current block
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
 }
